@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "layer0":  "cyber-cultivation-mod:item/demon_blood_pill"
+                 },
+    "parent":  "item/generated"
+}

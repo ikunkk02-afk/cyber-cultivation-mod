@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "layer0":  "cyber-cultivation-mod:item/heart_cleansing_pill"
+                 },
+    "parent":  "item/generated"
+}

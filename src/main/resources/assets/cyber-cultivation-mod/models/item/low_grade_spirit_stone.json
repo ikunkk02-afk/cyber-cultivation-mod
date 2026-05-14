@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "layer0":  "cyber-cultivation-mod:item/low_grade_spirit_stone"
+                 },
+    "parent":  "item/generated"
+}

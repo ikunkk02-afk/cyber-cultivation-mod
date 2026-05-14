@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "S": {
+      "item": "minecraft:stone_bricks"
+    }
+  },
+  "pattern": [
+    "ASA",
+    "SDS",
+    "ASA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "cyber-cultivation-mod:cultivation_altar"
+  }
+}

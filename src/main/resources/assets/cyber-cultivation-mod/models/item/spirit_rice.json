@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "layer0":  "cyber-cultivation-mod:item/spirit_rice"
+                 },
+    "parent":  "item/generated"
+}

@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "layer0":  "cyber-cultivation-mod:item/demon_core"
+                 },
+    "parent":  "item/generated"
+}

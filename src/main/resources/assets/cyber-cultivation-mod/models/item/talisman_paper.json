@@ -1,0 +1,6 @@
+﻿{
+    "textures":  {
+                     "layer0":  "cyber-cultivation-mod:item/talisman_paper"
+                 },
+    "parent":  "item/generated"
+}
