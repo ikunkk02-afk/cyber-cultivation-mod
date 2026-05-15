@@ -1,5 +1,5 @@
 {
-  "parent": "item/generated",
+  "parent": "minecraft:item/handheld",
   "textures": {
     "layer0": "cyber-cultivation-mod:item/heavenly_judgement_sword"
   }

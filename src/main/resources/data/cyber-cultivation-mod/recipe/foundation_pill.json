@@ -1,0 +1,22 @@
+﻿{
+    "ingredients":  [
+                        {
+                            "item":  "cyber-cultivation-mod:spirit_herb"
+                        },
+                        {
+                            "item":  "cyber-cultivation-mod:high_grade_spirit_stone"
+                        },
+                        {
+                            "item":  "cyber-cultivation-mod:beast_core"
+                        },
+                        {
+                            "item":  "cyber-cultivation-mod:alchemy_essence"
+                        }
+                    ],
+    "category":  "misc",
+    "result":  {
+                   "id":  "cyber-cultivation-mod:foundation_pill",
+                   "count":  1
+               },
+    "type":  "minecraft:crafting_shapeless"
+}

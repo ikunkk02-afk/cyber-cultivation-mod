@@ -1,0 +1,19 @@
+﻿{
+    "ingredients":  [
+                        {
+                            "item":  "minecraft:paper"
+                        },
+                        {
+                            "item":  "minecraft:gold_nugget"
+                        },
+                        {
+                            "item":  "minecraft:redstone"
+                        }
+                    ],
+    "category":  "misc",
+    "result":  {
+                   "id":  "cyber-cultivation-mod:talisman_paper",
+                   "count":  1
+               },
+    "type":  "minecraft:crafting_shapeless"
+}

@@ -1,0 +1,18 @@
+﻿{
+    "key":  {
+                "M":  {
+                          "item":  "cyber-cultivation-mod:middle_grade_spirit_stone"
+                      }
+            },
+    "category":  "misc",
+    "pattern":  [
+                    "MMM",
+                    "MMM",
+                    "MMM"
+                ],
+    "result":  {
+                   "id":  "cyber-cultivation-mod:high_grade_spirit_stone",
+                   "count":  1
+               },
+    "type":  "minecraft:crafting_shaped"
+}

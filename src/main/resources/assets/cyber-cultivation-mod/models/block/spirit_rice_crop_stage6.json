@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "cyber-cultivation-mod:block/spirit_rice_crop_stage6"
+  }
+}

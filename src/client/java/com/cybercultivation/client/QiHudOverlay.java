@@ -8,7 +8,7 @@ import org.lwjgl.glfw.GLFW;
 public class QiHudOverlay {
 
     private static final int PANEL_WIDTH = 180;
-    private static final int PANEL_HEIGHT = 110;
+    private static final int PANEL_HEIGHT = 124;
     private static final int BAR_WIDTH = 100;
     private static final int BAR_HEIGHT = 8;
 
@@ -106,6 +106,11 @@ public class QiHudOverlay {
         int statusColor = ClientQiData.isFlyingSword() ? 0xFF54E6E4 : COLOR_VALUE;
         graphics.drawString(client.font, "\u72b6\u6001\uff1a", 16, row3Y, COLOR_LABEL, false);
         graphics.drawString(client.font, ClientQiData.getFlyingSwordStatusDisplayName(), 58, row3Y, statusColor, false);
+        if (ClientQiData.isFlyingSword()) {
+            int row4Y = 108;
+            graphics.drawString(client.font, "\u5fa1\u5251\u6cd5\u5251\uff1a", 16, row4Y, COLOR_LABEL, false);
+            graphics.drawString(client.font, ClientQiData.getFlyingSwordItemDisplayName(), 82, row4Y, COLOR_VALUE, false);
+        }
     }
 
     private static void drawFrame(GuiGraphics graphics) {

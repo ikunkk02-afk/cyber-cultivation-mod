@@ -1,0 +1,12 @@
+﻿{
+    "cookingtime":  200,
+    "experience":  0.35,
+    "ingredient":  {
+                       "item":  "cyber-cultivation-mod:spirit_meat"
+                   },
+    "type":  "minecraft:smelting",
+    "category":  "food",
+    "result":  {
+                   "id":  "cyber-cultivation-mod:roasted_spirit_meat"
+               }
+}

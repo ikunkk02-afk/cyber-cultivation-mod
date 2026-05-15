@@ -3,7 +3,8 @@ package com.cybercultivation.flysword;
 import com.cybercultivation.component.PlayerQiData;
 import com.cybercultivation.component.PlayerQiManager;
 import com.cybercultivation.cultivation.CultivationDiscipline;
-import com.cybercultivation.item.ModItems;
+import com.cybercultivation.util.FlyingSwordHelper;
+import com.cybercultivation.util.ParticleColorHelper;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
@@ -21,9 +22,9 @@ public final class FlyingSwordHandler {
     private static final int TICKS_PER_SECOND = 20;
     private static final float FLYING_SWORD_SPEED = 0.035F;
     private static final float DEFAULT_FLYING_SPEED = 0.05F;
-    private static final DustParticleOptions FLYING_SWORD_PARTICLE =
-            new DustParticleOptions(new Vector3f(0.20F, 0.90F, 0.95F), 0.85F);
-
+    private static final Component NEED_SWORD_MESSAGE = Component.literal("\u4f60\u9700\u8981\u624b\u6301\u4e00\u628a\u4fee\u4ed9\u5251\u624d\u80fd\u5fa1\u5251\u3002");
+    private static final Component LOST_SWORD_MESSAGE = Component.literal("\u4f60\u5931\u53bb\u4e86\u5fa1\u5251\u6240\u9700\u7684\u6cd5\u5251\u3002");
+    private static final Component WRONG_DAO_MESSAGE = Component.literal("\u4f60\u7684\u9053\u7edf\u65e0\u6cd5\u9a7e\u9a6d\u8fd9\u628a\u6b66\u5668\u3002");
     private static int tickCounter = 0;
 
     private FlyingSwordHandler() {
@@ -43,7 +44,15 @@ public final class FlyingSwordHandler {
         if (data.isFlyingSword()) {
             return true;
         }
-        if (requireItem && !isHoldingFlyingSword(player)) {
+        ItemStack sword = FlyingSwordHelper.getHeldFlyingSword(player);
+        if (sword.isEmpty()) {
+            player.sendSystemMessage(NEED_SWORD_MESSAGE);
+            PlayerQiManager.syncToClient(player);
+            return false;
+        }
+        if (!FlyingSwordHelper.canPathUseSword(data.getSelectedPath(), sword)) {
+            player.sendSystemMessage(WRONG_DAO_MESSAGE);
+            PlayerQiManager.syncToClient(player);
             return false;
         }
         if (!canUseFlyingSword(data)) {
@@ -53,6 +62,7 @@ public final class FlyingSwordHandler {
         }
 
         data.setFlyingSword(true);
+        data.setFlyingSwordItemId(FlyingSwordHelper.getItemId(sword));
         Abilities abilities = player.getAbilities();
         abilities.mayfly = true;
         abilities.flying = true;
@@ -89,6 +99,19 @@ public final class FlyingSwordHandler {
                 continue;
             }
 
+            ItemStack sword = FlyingSwordHelper.getHeldFlyingSword(player);
+            if (sword.isEmpty()) {
+                player.sendSystemMessage(LOST_SWORD_MESSAGE);
+                exit(player, false, true);
+                continue;
+            }
+            if (!FlyingSwordHelper.canPathUseSword(data.getSelectedPath(), sword)) {
+                player.sendSystemMessage(WRONG_DAO_MESSAGE);
+                exit(player, false, true);
+                continue;
+            }
+            data.setFlyingSwordItemId(FlyingSwordHelper.getItemId(sword));
+
             if (data.getCurrentQi() < QI_COST_PER_SECOND) {
                 player.sendSystemMessage(Component.literal("\u7075\u529b\u4e0d\u8db3\uff0c\u5fa1\u5251\u72b6\u6001\u5df2\u7ed3\u675f\u3002"));
                 exit(player, false, true);
@@ -98,6 +121,7 @@ public final class FlyingSwordHandler {
             data.setCurrentQi(data.getCurrentQi() - QI_COST_PER_SECOND);
             spawnFlyingSwordEffects(player);
             PlayerQiManager.syncToClient(player);
+            PlayerQiManager.broadcastAnimationState(player);
         }
     }
 
@@ -108,6 +132,7 @@ public final class FlyingSwordHandler {
         }
 
         data.setFlyingSword(false);
+        data.setFlyingSwordItemId(null);
         Abilities abilities = player.getAbilities();
         if (!player.isCreative() && !player.isSpectator()) {
             abilities.mayfly = false;
@@ -132,33 +157,24 @@ public final class FlyingSwordHandler {
                 || data.getSubDisciplines().contains(CultivationDiscipline.SWORD));
     }
 
-    private static boolean isHoldingFlyingSword(ServerPlayer player) {
-        return isFlyingSword(player.getMainHandItem()) || isFlyingSword(player.getOffhandItem());
-    }
-
-    private static boolean isFlyingSword(ItemStack stack) {
-        return stack.is(ModItems.FLYING_SWORD);
-    }
-
     private static void spawnFlyingSwordEffects(ServerPlayer player) {
         ServerLevel level = player.serverLevel();
         double x = player.getX();
         double y = player.getY() + 0.08;
         double z = player.getZ();
 
+        ItemStack sword = FlyingSwordHelper.getHeldFlyingSword(player);
+        Vector3f color = sword.isEmpty()
+                ? new Vector3f(0.20F, 0.90F, 0.95F)
+                : ParticleColorHelper.getFlyingSwordTrailColor(sword);
+
         for (int i = 0; i < 5; i++) {
             double offsetX = (level.random.nextDouble() - 0.5) * 0.75;
             double offsetZ = (level.random.nextDouble() - 0.5) * 0.75;
             level.sendParticles(
-                    FLYING_SWORD_PARTICLE,
-                    x + offsetX,
-                    y,
-                    z + offsetZ,
-                    1,
-                    0.0,
-                    0.02,
-                    0.0,
-                    0.01
+                    new DustParticleOptions(color, 0.85F),
+                    x + offsetX, y, z + offsetZ,
+                    1, 0.0, 0.02, 0.0, 0.01
             );
         }
 

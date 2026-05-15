@@ -4,6 +4,11 @@ import com.cybercultivation.component.PlayerQiData;
 import com.cybercultivation.cultivation.CultivationDiscipline;
 import com.cybercultivation.cultivation.CultivationElement;
 import com.cybercultivation.cultivation.CultivationPath;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +21,7 @@ public class ClientQiData {
     private static final List<CultivationDiscipline> subDisciplines = new ArrayList<>();
     private static CultivationElement element;
     private static boolean flyingSword;
+    private static ResourceLocation flyingSwordItemId;
     private static boolean meditating;
 
     public static int getCurrentQi() {
@@ -27,19 +33,19 @@ public class ClientQiData {
     }
 
     public static String getPathDisplayName() {
-        return selectedPath == null ? "未选择" : selectedPath.getChineseName();
+        return selectedPath == null ? "\u672a\u9009\u62e9" : selectedPath.getChineseName();
     }
 
     public static String getMainDisciplineDisplayName() {
-        return mainDiscipline == null ? "未选择" : mainDiscipline.getChineseName();
+        return mainDiscipline == null ? "\u672a\u9009\u62e9" : mainDiscipline.getChineseName();
     }
 
     public static String getSubDisciplinesDisplayName() {
-        return PlayerQiData.formatDisciplines(subDisciplines, "无");
+        return PlayerQiData.formatDisciplines(subDisciplines, "\u65e0");
     }
 
     public static String getElementDisplayName() {
-        return element == null ? "未觉醒" : element.getChineseName();
+        return element == null ? "\u672a\u89c9\u9192" : element.getChineseName();
     }
 
     public static boolean isFlyingSword() {
@@ -48,12 +54,28 @@ public class ClientQiData {
 
     public static String getFlyingSwordStatusDisplayName() {
         if (flyingSword) {
-            return "御剑中";
+            return "\u5fa1\u5251\u4e2d";
         }
         if (meditating) {
-            return "打坐中";
+            return "\u6253\u5750\u4e2d";
         }
-        return "正常";
+        return "\u6b63\u5e38";
+    }
+
+    public static ResourceLocation getFlyingSwordItemId() {
+        return flyingSwordItemId;
+    }
+
+    public static String getFlyingSwordItemDisplayName() {
+        if (!flyingSword || flyingSwordItemId == null) {
+            return "";
+        }
+
+        Item item = BuiltInRegistries.ITEM.get(flyingSwordItemId);
+        if (item == Items.AIR) {
+            return "";
+        }
+        return new ItemStack(item).getHoverName().getString();
     }
 
     public static boolean isMeditating() {
@@ -67,6 +89,7 @@ public class ClientQiData {
                            List<CultivationDiscipline> newSubDisciplines,
                            CultivationElement element,
                            boolean flyingSword,
+                           ResourceLocation flyingSwordItemId,
                            boolean meditating) {
         ClientQiData.currentQi = currentQi;
         ClientQiData.maxQi = maxQi;
@@ -76,6 +99,7 @@ public class ClientQiData {
         ClientQiData.subDisciplines.addAll(newSubDisciplines);
         ClientQiData.element = element;
         ClientQiData.flyingSword = flyingSword;
+        ClientQiData.flyingSwordItemId = flyingSword ? flyingSwordItemId : null;
         ClientQiData.meditating = meditating;
     }
 }

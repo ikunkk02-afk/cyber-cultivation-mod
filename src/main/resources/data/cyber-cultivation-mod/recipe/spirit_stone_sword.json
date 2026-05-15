@@ -1,0 +1,21 @@
+﻿{
+    "key":  {
+                "S":  {
+                          "item":  "cyber-cultivation-mod:spirit_stone"
+                      },
+                "T":  {
+                          "item":  "minecraft:stick"
+                      }
+            },
+    "category":  "equipment",
+    "pattern":  [
+                    " S ",
+                    " S ",
+                    " T "
+                ],
+    "result":  {
+                   "id":  "cyber-cultivation-mod:spirit_stone_sword",
+                   "count":  1
+               },
+    "type":  "minecraft:crafting_shaped"
+}

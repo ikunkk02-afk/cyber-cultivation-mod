@@ -1,0 +1,19 @@
+﻿{
+    "ingredients":  [
+                        {
+                            "item":  "minecraft:blaze_powder"
+                        },
+                        {
+                            "item":  "minecraft:redstone"
+                        },
+                        {
+                            "item":  "cyber-cultivation-mod:low_grade_spirit_stone"
+                        }
+                    ],
+    "category":  "misc",
+    "result":  {
+                   "id":  "cyber-cultivation-mod:demon_core",
+                   "count":  1
+               },
+    "type":  "minecraft:crafting_shapeless"
+}

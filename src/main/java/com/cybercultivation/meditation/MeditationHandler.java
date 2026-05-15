@@ -3,7 +3,8 @@ package com.cybercultivation.meditation;
 import com.cybercultivation.component.PlayerQiData;
 import com.cybercultivation.component.PlayerQiManager;
 import com.cybercultivation.cultivation.CultivationPath;
-import net.minecraft.core.particles.ParticleTypes;
+import com.cybercultivation.particle.SpiritQiParticleOptions;
+import com.cybercultivation.util.ParticleColorHelper;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -98,19 +99,31 @@ public class MeditationHandler {
         double y = player.getY() + 1.0;
         double z = player.getZ();
 
+        PlayerQiData data = PlayerQiManager.get(player);
+        CultivationPath path = data != null ? data.getSelectedPath() : null;
+        int color = ParticleColorHelper.getMeditationPathColor(path);
+
         for (int i = 0; i < 3; i++) {
-            double offsetX = (world.random.nextDouble() - 0.5) * 1.5;
-            double offsetY = world.random.nextDouble() * 1.5;
-            double offsetZ = (world.random.nextDouble() - 0.5) * 1.5;
+            double angle = world.random.nextDouble() * 2 * Math.PI;
+            double radius = 1.0 + world.random.nextDouble() * 0.6;
+            double ox = Math.cos(angle) * radius;
+            double oz = Math.sin(angle) * radius;
+            double oy = world.random.nextDouble() * 1.5 - 0.2;
 
             world.sendParticles(
-                    ParticleTypes.END_ROD,
-                    x + offsetX,
-                    y + offsetY,
-                    z + offsetZ,
-                    1,
-                    0.0, 0.0, 0.0,
-                    0.01
+                    new SpiritQiParticleOptions(color),
+                    x + ox, y + oy, z + oz,
+                    1, 0.0, 0.0, 0.0, 0.01
+            );
+        }
+
+        if (world.random.nextInt(60) == 0) {
+            world.sendParticles(
+                    new SpiritQiParticleOptions(color),
+                    x + (world.random.nextDouble() - 0.5) * 0.6,
+                    y + 0.2,
+                    z + (world.random.nextDouble() - 0.5) * 0.6,
+                    4, 0.0, 0.4, 0.0, 0.02
             );
         }
     }

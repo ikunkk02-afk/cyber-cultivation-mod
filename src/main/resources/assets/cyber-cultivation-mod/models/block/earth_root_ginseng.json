@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "cyber-cultivation-mod:block/earth_root_ginseng"
+  }
+}

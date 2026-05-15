@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
  * Sent whenever a player's cultivation state changes so that all nearby clients can
  * drive the correct player animation via Player Animation Library.
  */
-public record PlayerAnimationSyncPayload(int entityId, boolean meditating, boolean flyingSword)
+public record PlayerAnimationSyncPayload(int entityId, boolean meditating, boolean flyingSword, ResourceLocation flyingSwordItemId)
         implements CustomPacketPayload {
 
     public static final StreamCodec<RegistryFriendlyByteBuf, PlayerAnimationSyncPayload> STREAM_CODEC =
@@ -19,12 +19,14 @@ public record PlayerAnimationSyncPayload(int entityId, boolean meditating, boole
                         buf.writeVarInt(value.entityId());
                         buf.writeBoolean(value.meditating());
                         buf.writeBoolean(value.flyingSword());
+                        writeNullableResourceLocation(buf, value.flyingSwordItemId());
                     },
                     buf -> {
                         int entityId = buf.readVarInt();
                         boolean meditating = buf.readBoolean();
                         boolean flyingSword = buf.readBoolean();
-                        return new PlayerAnimationSyncPayload(entityId, meditating, flyingSword);
+                        ResourceLocation flyingSwordItemId = readNullableResourceLocation(buf);
+                        return new PlayerAnimationSyncPayload(entityId, meditating, flyingSword, flyingSwordItemId);
                     }
             );
 
@@ -36,5 +38,19 @@ public record PlayerAnimationSyncPayload(int entityId, boolean meditating, boole
     @Override
     public CustomPacketPayload.Type<PlayerAnimationSyncPayload> type() {
         return TYPE;
+    }
+
+    private static void writeNullableResourceLocation(RegistryFriendlyByteBuf buf, ResourceLocation value) {
+        buf.writeBoolean(value != null);
+        if (value != null) {
+            buf.writeResourceLocation(value);
+        }
+    }
+
+    private static ResourceLocation readNullableResourceLocation(RegistryFriendlyByteBuf buf) {
+        if (!buf.readBoolean()) {
+            return null;
+        }
+        return buf.readResourceLocation();
     }
 }

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "cyber-cultivation-mod:thunder_grass"
+        }
+      ]
+    }
+  ],
+  "random_sequence": "cyber-cultivation-mod:blocks/thunder_grass"
+}

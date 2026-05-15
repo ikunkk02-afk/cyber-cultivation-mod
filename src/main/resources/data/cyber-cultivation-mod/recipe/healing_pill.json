@@ -1,0 +1,19 @@
+﻿{
+    "ingredients":  [
+                        {
+                            "item":  "minecraft:golden_apple"
+                        },
+                        {
+                            "item":  "cyber-cultivation-mod:spirit_herb"
+                        },
+                        {
+                            "item":  "cyber-cultivation-mod:alchemy_essence"
+                        }
+                    ],
+    "category":  "misc",
+    "result":  {
+                   "id":  "cyber-cultivation-mod:healing_pill",
+                   "count":  1
+               },
+    "type":  "minecraft:crafting_shapeless"
+}

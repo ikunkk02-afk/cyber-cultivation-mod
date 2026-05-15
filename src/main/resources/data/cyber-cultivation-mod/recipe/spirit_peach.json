@@ -1,0 +1,19 @@
+﻿{
+    "ingredients":  [
+                        {
+                            "item":  "minecraft:apple"
+                        },
+                        {
+                            "item":  "cyber-cultivation-mod:spirit_herb"
+                        },
+                        {
+                            "item":  "cyber-cultivation-mod:low_grade_spirit_stone"
+                        }
+                    ],
+    "category":  "food",
+    "result":  {
+                   "id":  "cyber-cultivation-mod:spirit_peach",
+                   "count":  1
+               },
+    "type":  "minecraft:crafting_shapeless"
+}

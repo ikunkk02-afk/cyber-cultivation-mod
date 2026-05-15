@@ -1,0 +1,19 @@
+﻿{
+    "ingredients":  [
+                        {
+                            "item":  "minecraft:amethyst_shard"
+                        },
+                        {
+                            "item":  "minecraft:quartz"
+                        },
+                        {
+                            "item":  "minecraft:redstone"
+                        }
+                    ],
+    "category":  "misc",
+    "result":  {
+                   "id":  "cyber-cultivation-mod:low_grade_spirit_stone",
+                   "count":  1
+               },
+    "type":  "minecraft:crafting_shapeless"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "ingredients":  [
+                        {
+                            "item":  "cyber-cultivation-mod:spirit_stone_sword"
+                        },
+                        {
+                            "item":  "minecraft:feather"
+                        },
+                        {
+                            "item":  "minecraft:emerald"
+                        }
+                    ],
+    "category":  "equipment",
+    "result":  {
+                   "id":  "cyber-cultivation-mod:wind_spirit_sword",
+                   "count":  1
+               },
+    "type":  "minecraft:crafting_shapeless"
+}

@@ -1,0 +1,19 @@
+﻿{
+    "ingredients":  [
+                        {
+                            "item":  "minecraft:spider_eye"
+                        },
+                        {
+                            "item":  "minecraft:milk_bucket"
+                        },
+                        {
+                            "item":  "cyber-cultivation-mod:spirit_herb"
+                        }
+                    ],
+    "category":  "misc",
+    "result":  {
+                   "id":  "cyber-cultivation-mod:detox_pill",
+                   "count":  1
+               },
+    "type":  "minecraft:crafting_shapeless"
+}

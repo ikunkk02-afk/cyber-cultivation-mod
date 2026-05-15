@@ -1,0 +1,20 @@
+﻿{
+    "key":  {
+                "E":  {
+                          "item":  "cyber-cultivation-mod:low_grade_spirit_stone"
+                      },
+                "M":  {
+                          "item":  "minecraft:iron_ingot"
+                      }
+            },
+    "category":  "equipment",
+    "pattern":  [
+                    "MMM",
+                    "MEM"
+                ],
+    "result":  {
+                   "id":  "cyber-cultivation-mod:xuan_iron_helmet",
+                   "count":  1
+               },
+    "type":  "minecraft:crafting_shaped"
+}

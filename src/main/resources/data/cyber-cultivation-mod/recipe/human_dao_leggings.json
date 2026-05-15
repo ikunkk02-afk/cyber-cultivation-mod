@@ -1,0 +1,22 @@
+﻿{
+    "ingredients":  [
+                        {
+                            "item":  "cyber-cultivation-mod:starfall_leggings"
+                        },
+                        {
+                            "item":  "cyber-cultivation-mod:high_grade_spirit_stone"
+                        },
+                        {
+                            "item":  "minecraft:emerald"
+                        },
+                        {
+                            "item":  "minecraft:gold_ingot"
+                        }
+                    ],
+    "category":  "equipment",
+    "result":  {
+                   "id":  "cyber-cultivation-mod:human_dao_leggings",
+                   "count":  1
+               },
+    "type":  "minecraft:crafting_shapeless"
+}

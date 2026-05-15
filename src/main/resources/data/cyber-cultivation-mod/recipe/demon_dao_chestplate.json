@@ -1,0 +1,22 @@
+﻿{
+    "ingredients":  [
+                        {
+                            "item":  "cyber-cultivation-mod:starfall_chestplate"
+                        },
+                        {
+                            "item":  "cyber-cultivation-mod:high_grade_spirit_stone"
+                        },
+                        {
+                            "item":  "cyber-cultivation-mod:demon_core"
+                        },
+                        {
+                            "item":  "minecraft:redstone"
+                        }
+                    ],
+    "category":  "equipment",
+    "result":  {
+                   "id":  "cyber-cultivation-mod:demon_dao_chestplate",
+                   "count":  1
+               },
+    "type":  "minecraft:crafting_shapeless"
+}

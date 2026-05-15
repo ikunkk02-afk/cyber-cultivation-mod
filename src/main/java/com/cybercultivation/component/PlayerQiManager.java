@@ -49,6 +49,7 @@ public class PlayerQiManager {
                 data.getSubDisciplines(),
                 data.getElement(),
                 data.isFlyingSword(),
+                data.getFlyingSwordItemId(),
                 data.isMeditating()
         ));
     }
@@ -63,7 +64,8 @@ public class PlayerQiManager {
         var payload = new com.cybercultivation.network.PlayerAnimationSyncPayload(
                 player.getId(),
                 data.isMeditating(),
-                data.isFlyingSword()
+                data.isFlyingSword(),
+                data.getFlyingSwordItemId()
         );
         for (ServerPlayer p : player.getServer().getPlayerList().getPlayers()) {
             ServerPlayNetworking.send(p, payload);

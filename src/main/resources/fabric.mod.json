@@ -37,6 +37,7 @@
 		"minecraft": "~1.21.1",
 		"java": ">=21",
 		"fabric-api": "*",
-		"playeranimator": ">=2.0.0"
+		"playeranimator": ">=2.0.0",
+		"geckolib": ">=4.8.4"
 	}
 }

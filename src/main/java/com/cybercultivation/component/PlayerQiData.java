@@ -3,6 +3,7 @@ package com.cybercultivation.component;
 import com.cybercultivation.cultivation.CultivationDiscipline;
 import com.cybercultivation.cultivation.CultivationElement;
 import com.cybercultivation.cultivation.CultivationPath;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ public class PlayerQiData {
     private final List<CultivationDiscipline> subDisciplines;
     private CultivationElement element;
     private boolean flyingSword;
+    private ResourceLocation flyingSwordItemId;
 
     public PlayerQiData() {
         this.recommendedSubDisciplines = new ArrayList<>();
@@ -37,6 +39,7 @@ public class PlayerQiData {
         this.meditating = false;
         this.aptitudeTested = false;
         this.flyingSword = false;
+        this.flyingSwordItemId = null;
         this.recommendedPath = null;
         this.recommendedMainDiscipline = null;
         this.recommendedElement = null;
@@ -173,6 +176,17 @@ public class PlayerQiData {
 
     public void setFlyingSword(boolean flyingSword) {
         this.flyingSword = flyingSword;
+        if (!flyingSword) {
+            this.flyingSwordItemId = null;
+        }
+    }
+
+    public ResourceLocation getFlyingSwordItemId() {
+        return flyingSwordItemId;
+    }
+
+    public void setFlyingSwordItemId(ResourceLocation flyingSwordItemId) {
+        this.flyingSwordItemId = flyingSwordItemId;
     }
 
     public void applyAptitudeResult(CultivationPath path,

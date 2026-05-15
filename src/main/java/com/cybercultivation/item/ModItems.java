@@ -3,6 +3,7 @@ package com.cybercultivation.item;
 import com.cybercultivation.CyberCultivationMod;
 import com.cybercultivation.block.ModBlocks;
 import com.cybercultivation.cultivation.CultivationPath;
+import com.cybercultivation.entity.ModEntities;
 import com.cybercultivation.item.custom.DaoRestrictedArmorItem;
 import com.cybercultivation.item.custom.DaoRestrictedSwordItem;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -19,7 +20,9 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemNameBlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 
@@ -33,7 +36,43 @@ public final class ModItems {
             "cultivation_altar",
             new BlockItem(ModBlocks.CULTIVATION_ALTAR, new Item.Properties())
     );
-
+    public static final Item CULTIVATION_TABLE = register(
+            "cultivation_table",
+            new BlockItem(ModBlocks.CULTIVATION_TABLE, new Item.Properties())
+    );
+    public static final Item SPIRIT_HERB_SEEDS = register(
+            "spirit_herb_seeds",
+            new ItemNameBlockItem(ModBlocks.SPIRIT_HERB_CROP, new Item.Properties())
+    );
+    public static final Item SPIRIT_RICE_SEEDS = register(
+            "spirit_rice_seeds",
+            new ItemNameBlockItem(ModBlocks.SPIRIT_RICE_CROP, new Item.Properties())
+    );
+    public static final Item FLAME_FLOWER = register("flame_flower", new BlockItem(ModBlocks.FLAME_FLOWER, new Item.Properties()));
+    public static final Item FROST_FLOWER = register("frost_flower", new BlockItem(ModBlocks.FROST_FLOWER, new Item.Properties()));
+    public static final Item THUNDER_GRASS = register("thunder_grass", new BlockItem(ModBlocks.THUNDER_GRASS, new Item.Properties()));
+    public static final Item DEMON_BLOOD_VINE = register("demon_blood_vine", new BlockItem(ModBlocks.DEMON_BLOOD_VINE, new Item.Properties()));
+    public static final Item MOONLIGHT_LOTUS = register("moonlight_lotus", new BlockItem(ModBlocks.MOONLIGHT_LOTUS, new Item.Properties()));
+    public static final Item GOLDEN_SPIRIT_BAMBOO = register("golden_spirit_bamboo", new BlockItem(ModBlocks.GOLDEN_SPIRIT_BAMBOO, new Item.Properties()));
+    public static final Item EARTH_ROOT_GINSENG = register("earth_root_ginseng", new BlockItem(ModBlocks.EARTH_ROOT_GINSENG, new Item.Properties()));
+    public static final Item SOUL_LANTERN_FLOWER = register("soul_lantern_flower", new BlockItem(ModBlocks.SOUL_LANTERN_FLOWER, new Item.Properties()));
+    public static final Item FIVE_ELEMENT_FRUIT = register("five_element_fruit", new BlockItem(ModBlocks.FIVE_ELEMENT_FRUIT, new Item.Properties()));
+    public static final Item SPIRIT_DEER_SPAWN_EGG = register(
+            "spirit_deer_spawn_egg",
+            new SpawnEggItem(ModEntities.SPIRIT_DEER, 0xD8B47A, 0x6ED0B3, new Item.Properties())
+    );
+    public static final Item SPIRIT_CRANE_SPAWN_EGG = register(
+            "spirit_crane_spawn_egg",
+            new SpawnEggItem(ModEntities.SPIRIT_CRANE, 0xF2F1E6, 0xB64242, new Item.Properties())
+    );
+    public static final Item DEMON_WOLF_SPAWN_EGG = register(
+            "demon_wolf_spawn_egg",
+            new SpawnEggItem(ModEntities.DEMON_WOLF, 0x2C2632, 0x9E1F2F, new Item.Properties())
+    );
+    public static final Item STONE_SHELL_TURTLE_SPAWN_EGG = register(
+            "stone_shell_turtle_spawn_egg",
+            new SpawnEggItem(ModEntities.STONE_SHELL_TURTLE, 0x6D7767, 0x58A06F, new Item.Properties())
+    );
     public static final Item SPIRIT_STONE = register("spirit_stone", new Item(new Item.Properties()));
     public static final Item LOW_GRADE_SPIRIT_STONE = register("low_grade_spirit_stone", new Item(new Item.Properties()));
     public static final Item MIDDLE_GRADE_SPIRIT_STONE = register("middle_grade_spirit_stone", new Item(new Item.Properties()));
@@ -62,6 +101,30 @@ public final class ModItems {
     public static final Item FLYING_SWORD = register(
             "flying_sword",
             new FlyingSwordItem(new Item.Properties().stacksTo(1))
+    );
+    public static final Item XUAN_IRON_SWORD = registerSword(
+            "xuan_iron_sword", ModToolMaterials.XUAN_IRON, 3, -2.4F
+    );
+    public static final Item SPIRIT_STONE_SWORD = registerSword(
+            "spirit_stone_sword", ModToolMaterials.SPIRIT_STONE, 3, -2.4F
+    );
+    public static final Item MYSTIC_JADE_SWORD = registerSword(
+            "mystic_jade_sword", ModToolMaterials.MYSTIC_JADE, 3, -2.4F
+    );
+    public static final Item STARFALL_SWORD = registerSword(
+            "starfall_sword", ModToolMaterials.STARFALL, 3, -2.4F
+    );
+    public static final Item FLAME_SPIRIT_SWORD = registerSword(
+            "flame_spirit_sword", ModToolMaterials.FLAME_SPIRIT, 3, -2.4F
+    );
+    public static final Item FROST_SPIRIT_SWORD = registerSword(
+            "frost_spirit_sword", ModToolMaterials.FROST_SPIRIT, 3, -2.4F
+    );
+    public static final Item THUNDER_SPIRIT_SWORD = registerSword(
+            "thunder_spirit_sword", ModToolMaterials.THUNDER_SPIRIT, 3, -2.4F
+    );
+    public static final Item WIND_SPIRIT_SWORD = registerSword(
+            "wind_spirit_sword", ModToolMaterials.WIND_SPIRIT, 2, -1.8F
     );
 
     public static final Item XUAN_IRON_HELMET = registerArmor("xuan_iron_helmet", ModArmorMaterials.XUAN_IRON, ArmorItem.Type.HELMET, 18);
@@ -117,6 +180,9 @@ public final class ModItems {
                     .title(Component.translatable("itemGroup.cyber-cultivation-mod.cyber_cultivation"))
                     .displayItems((context, entries) -> {
                         entries.accept(CULTIVATION_ALTAR);
+                        entries.accept(CULTIVATION_TABLE);
+                        entries.accept(SPIRIT_HERB_SEEDS);
+                        entries.accept(SPIRIT_RICE_SEEDS);
 
                         entries.accept(SPIRIT_STONE);
                         entries.accept(LOW_GRADE_SPIRIT_STONE);
@@ -128,6 +194,19 @@ public final class ModItems {
                         entries.accept(TALISMAN_PAPER);
                         entries.accept(ARRAY_CORE);
                         entries.accept(ALCHEMY_ESSENCE);
+                        entries.accept(FLAME_FLOWER);
+                        entries.accept(FROST_FLOWER);
+                        entries.accept(THUNDER_GRASS);
+                        entries.accept(DEMON_BLOOD_VINE);
+                        entries.accept(MOONLIGHT_LOTUS);
+                        entries.accept(GOLDEN_SPIRIT_BAMBOO);
+                        entries.accept(EARTH_ROOT_GINSENG);
+                        entries.accept(SOUL_LANTERN_FLOWER);
+                        entries.accept(FIVE_ELEMENT_FRUIT);
+                        entries.accept(SPIRIT_DEER_SPAWN_EGG);
+                        entries.accept(SPIRIT_CRANE_SPAWN_EGG);
+                        entries.accept(DEMON_WOLF_SPAWN_EGG);
+                        entries.accept(STONE_SHELL_TURTLE_SPAWN_EGG);
 
                         entries.accept(SPIRIT_PEACH);
                         entries.accept(SPIRIT_RICE);
@@ -144,6 +223,14 @@ public final class ModItems {
                         entries.accept(DETOX_PILL);
 
                         entries.accept(FLYING_SWORD);
+                        entries.accept(XUAN_IRON_SWORD);
+                        entries.accept(SPIRIT_STONE_SWORD);
+                        entries.accept(MYSTIC_JADE_SWORD);
+                        entries.accept(STARFALL_SWORD);
+                        entries.accept(FLAME_SPIRIT_SWORD);
+                        entries.accept(FROST_SPIRIT_SWORD);
+                        entries.accept(THUNDER_SPIRIT_SWORD);
+                        entries.accept(WIND_SPIRIT_SWORD);
 
                         entries.accept(XUAN_IRON_HELMET);
                         entries.accept(XUAN_IRON_CHESTPLATE);
@@ -187,6 +274,18 @@ public final class ModItems {
 
     public static void registerModItems() {
         Item.BY_BLOCK.put(ModBlocks.CULTIVATION_ALTAR, CULTIVATION_ALTAR);
+        Item.BY_BLOCK.put(ModBlocks.CULTIVATION_TABLE, CULTIVATION_TABLE);
+        Item.BY_BLOCK.put(ModBlocks.SPIRIT_HERB_CROP, SPIRIT_HERB_SEEDS);
+        Item.BY_BLOCK.put(ModBlocks.SPIRIT_RICE_CROP, SPIRIT_RICE_SEEDS);
+        Item.BY_BLOCK.put(ModBlocks.FLAME_FLOWER, FLAME_FLOWER);
+        Item.BY_BLOCK.put(ModBlocks.FROST_FLOWER, FROST_FLOWER);
+        Item.BY_BLOCK.put(ModBlocks.THUNDER_GRASS, THUNDER_GRASS);
+        Item.BY_BLOCK.put(ModBlocks.DEMON_BLOOD_VINE, DEMON_BLOOD_VINE);
+        Item.BY_BLOCK.put(ModBlocks.MOONLIGHT_LOTUS, MOONLIGHT_LOTUS);
+        Item.BY_BLOCK.put(ModBlocks.GOLDEN_SPIRIT_BAMBOO, GOLDEN_SPIRIT_BAMBOO);
+        Item.BY_BLOCK.put(ModBlocks.EARTH_ROOT_GINSENG, EARTH_ROOT_GINSENG);
+        Item.BY_BLOCK.put(ModBlocks.SOUL_LANTERN_FLOWER, SOUL_LANTERN_FLOWER);
+        Item.BY_BLOCK.put(ModBlocks.FIVE_ELEMENT_FRUIT, FIVE_ELEMENT_FRUIT);
         CyberCultivationMod.LOGGER.info("Registering Cyber Cultivation items");
     }
 
@@ -220,6 +319,18 @@ public final class ModItems {
                         .durability(tier.getUses())
                         .attributes(SwordItem.createAttributes(tier, attackDamage, attackSpeed)),
                 requiredPath
+        ));
+    }
+
+    private static Item registerSword(String name,
+                                      Tier tier,
+                                      int attackDamage,
+                                      float attackSpeed) {
+        return register(name, new SwordItem(
+                tier,
+                new Item.Properties()
+                        .durability(tier.getUses())
+                        .attributes(SwordItem.createAttributes(tier, attackDamage, attackSpeed))
         ));
     }
 

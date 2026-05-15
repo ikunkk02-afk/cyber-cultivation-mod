@@ -1,0 +1,24 @@
+﻿{
+    "key":  {
+                "S":  {
+                          "item":  "minecraft:stick"
+                      },
+                "M":  {
+                          "item":  "cyber-cultivation-mod:middle_grade_spirit_stone"
+                      },
+                "A":  {
+                          "item":  "minecraft:amethyst_shard"
+                      }
+            },
+    "category":  "equipment",
+    "pattern":  [
+                    " M ",
+                    " M ",
+                    "AS "
+                ],
+    "result":  {
+                   "id":  "cyber-cultivation-mod:mystic_jade_sword",
+                   "count":  1
+               },
+    "type":  "minecraft:crafting_shaped"
+}

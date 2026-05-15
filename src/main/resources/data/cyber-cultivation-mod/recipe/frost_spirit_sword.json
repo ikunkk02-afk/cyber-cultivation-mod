@@ -1,0 +1,19 @@
+﻿{
+    "ingredients":  [
+                        {
+                            "item":  "cyber-cultivation-mod:spirit_stone_sword"
+                        },
+                        {
+                            "item":  "minecraft:snowball"
+                        },
+                        {
+                            "item":  "minecraft:blue_ice"
+                        }
+                    ],
+    "category":  "equipment",
+    "result":  {
+                   "id":  "cyber-cultivation-mod:frost_spirit_sword",
+                   "count":  1
+               },
+    "type":  "minecraft:crafting_shapeless"
+}

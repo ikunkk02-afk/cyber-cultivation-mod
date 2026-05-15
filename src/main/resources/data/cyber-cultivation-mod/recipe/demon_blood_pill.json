@@ -1,0 +1,19 @@
+﻿{
+    "ingredients":  [
+                        {
+                            "item":  "cyber-cultivation-mod:demon_core"
+                        },
+                        {
+                            "item":  "minecraft:redstone"
+                        },
+                        {
+                            "item":  "cyber-cultivation-mod:alchemy_essence"
+                        }
+                    ],
+    "category":  "misc",
+    "result":  {
+                   "id":  "cyber-cultivation-mod:demon_blood_pill",
+                   "count":  1
+               },
+    "type":  "minecraft:crafting_shapeless"
+}

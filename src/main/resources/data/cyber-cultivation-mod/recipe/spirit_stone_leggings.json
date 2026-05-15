@@ -1,0 +1,18 @@
+﻿{
+    "key":  {
+                "M":  {
+                          "item":  "cyber-cultivation-mod:spirit_stone"
+                      }
+            },
+    "category":  "equipment",
+    "pattern":  [
+                    "MMM",
+                    "M M",
+                    "M M"
+                ],
+    "result":  {
+                   "id":  "cyber-cultivation-mod:spirit_stone_leggings",
+                   "count":  1
+               },
+    "type":  "minecraft:crafting_shaped"
+}

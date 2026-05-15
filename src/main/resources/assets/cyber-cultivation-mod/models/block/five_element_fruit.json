@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "cyber-cultivation-mod:block/five_element_fruit"
+  }
+}

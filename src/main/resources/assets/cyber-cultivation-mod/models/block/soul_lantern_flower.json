@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "cyber-cultivation-mod:block/soul_lantern_flower"
+  }
+}

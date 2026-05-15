@@ -8,6 +8,7 @@ group = project.maven_group
 
 repositories {
 	maven { url "https://maven.kosmx.dev/" }
+	maven { url "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/" }
 }
 
 loom {
@@ -39,6 +40,9 @@ dependencies {
 
 	// Player Animation Library
 	modImplementation "dev.kosmx.player-anim:player-animation-lib-fabric:${project.player_anim_version}"
+
+	// GeckoLib for cultivation creature models and animation.
+	modImplementation "software.bernie.geckolib:geckolib-fabric-1.21.1:${project.geckolib_version}"
 	
 }
 

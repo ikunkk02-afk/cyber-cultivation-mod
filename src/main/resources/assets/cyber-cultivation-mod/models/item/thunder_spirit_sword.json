@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "cyber-cultivation-mod:item/thunder_spirit_sword"
+  }
+}

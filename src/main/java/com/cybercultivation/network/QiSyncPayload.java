@@ -18,6 +18,7 @@ public record QiSyncPayload(int currentQi,
                             List<CultivationDiscipline> subDisciplines,
                             CultivationElement element,
                             boolean flyingSword,
+                            ResourceLocation flyingSwordItemId,
                             boolean meditating) implements CustomPacketPayload {
 
     public QiSyncPayload {
@@ -37,6 +38,7 @@ public record QiSyncPayload(int currentQi,
                         }
                         writeNullableEnum(buf, value.element());
                         buf.writeBoolean(value.flyingSword());
+                        writeNullableResourceLocation(buf, value.flyingSwordItemId());
                         buf.writeBoolean(value.meditating());
                     },
                     buf -> {
@@ -51,8 +53,9 @@ public record QiSyncPayload(int currentQi,
                         }
                         CultivationElement element = readNullableEnum(buf, CultivationElement.class);
                         boolean flyingSword = buf.readBoolean();
+                        ResourceLocation flyingSwordItemId = readNullableResourceLocation(buf);
                         boolean meditating = buf.readBoolean();
-                        return new QiSyncPayload(currentQi, maxQi, selectedPath, mainDiscipline, subDisciplines, element, flyingSword, meditating);
+                        return new QiSyncPayload(currentQi, maxQi, selectedPath, mainDiscipline, subDisciplines, element, flyingSword, flyingSwordItemId, meditating);
                     }
             );
 
@@ -78,5 +81,19 @@ public record QiSyncPayload(int currentQi,
             return null;
         }
         return buf.readEnum(enumClass);
+    }
+
+    private static void writeNullableResourceLocation(RegistryFriendlyByteBuf buf, ResourceLocation value) {
+        buf.writeBoolean(value != null);
+        if (value != null) {
+            buf.writeResourceLocation(value);
+        }
+    }
+
+    private static ResourceLocation readNullableResourceLocation(RegistryFriendlyByteBuf buf) {
+        if (!buf.readBoolean()) {
+            return null;
+        }
+        return buf.readResourceLocation();
     }
 }
