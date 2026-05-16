@@ -1,24 +1,32 @@
-{
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "A": {
-      "item": "minecraft:amethyst_shard"
-    },
-    "D": {
-      "item": "minecraft:diamond"
-    },
-    "S": {
-      "item": "minecraft:stone_bricks"
-    }
-  },
-  "pattern": [
-    "ASA",
-    "SDS",
-    "ASA"
-  ],
-  "result": {
-    "count": 1,
-    "id": "cyber-cultivation-mod:cultivation_altar"
-  }
+﻿{
+    "type":  "minecraft:crafting_shaped",
+    "category":  "misc",
+    "pattern":  [
+                    "DAD",
+                    "SCS",
+                    "BOB"
+                ],
+    "key":  {
+                "D":  {
+                          "item":  "minecraft:diamond"
+                      },
+                "S":  {
+                          "item":  "minecraft:stone_bricks"
+                      },
+                "O":  {
+                          "item":  "minecraft:obsidian"
+                      },
+                "B":  {
+                          "item":  "minecraft:chiseled_stone_bricks"
+                      },
+                "C":  {
+                          "item":  "cyber-cultivation-mod:middle_grade_spirit_stone"
+                      },
+                "A":  {
+                          "item":  "minecraft:amethyst_block"
+                      }
+            },
+    "result":  {
+                   "id":  "cyber-cultivation-mod:cultivation_altar"
+               }
 }

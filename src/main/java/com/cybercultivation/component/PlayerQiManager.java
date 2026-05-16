@@ -50,7 +50,9 @@ public class PlayerQiManager {
                 data.getElement(),
                 data.isFlyingSword(),
                 data.getFlyingSwordItemId(),
-                data.isMeditating()
+                data.isMeditating(),
+                data.isInHerbalRealm(),
+                data.getHerbalRealmTicksRemaining()
         ));
     }
 

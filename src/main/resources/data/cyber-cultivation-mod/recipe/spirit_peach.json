@@ -1,4 +1,6 @@
 ﻿{
+    "type":  "minecraft:crafting_shapeless",
+    "category":  "food",
     "ingredients":  [
                         {
                             "item":  "minecraft:apple"
@@ -8,12 +10,15 @@
                         },
                         {
                             "item":  "cyber-cultivation-mod:low_grade_spirit_stone"
+                        },
+                        {
+                            "item":  "minecraft:honey_bottle"
+                        },
+                        {
+                            "item":  "minecraft:gold_nugget"
                         }
                     ],
-    "category":  "food",
     "result":  {
-                   "id":  "cyber-cultivation-mod:spirit_peach",
-                   "count":  1
-               },
-    "type":  "minecraft:crafting_shapeless"
+                   "id":  "cyber-cultivation-mod:spirit_peach"
+               }
 }

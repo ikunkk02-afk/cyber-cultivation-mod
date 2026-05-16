@@ -1,19 +1,24 @@
 ﻿{
+    "type":  "minecraft:crafting_shapeless",
+    "category":  "food",
     "ingredients":  [
                         {
-                            "item":  "cyber-cultivation-mod:spirit_herb"
+                            "item":  "cyber-cultivation-mod:soul_lantern_flower"
                         },
                         {
-                            "item":  "minecraft:amethyst_shard"
+                            "item":  "cyber-cultivation-mod:moonlight_lotus"
+                        },
+                        {
+                            "item":  "cyber-cultivation-mod:middle_grade_spirit_stone"
                         },
                         {
                             "item":  "cyber-cultivation-mod:alchemy_essence"
+                        },
+                        {
+                            "item":  "minecraft:amethyst_shard"
                         }
                     ],
-    "category":  "misc",
     "result":  {
-                   "id":  "cyber-cultivation-mod:heart_cleansing_pill",
-                   "count":  1
-               },
-    "type":  "minecraft:crafting_shapeless"
+                   "id":  "cyber-cultivation-mod:heart_cleansing_pill"
+               }
 }

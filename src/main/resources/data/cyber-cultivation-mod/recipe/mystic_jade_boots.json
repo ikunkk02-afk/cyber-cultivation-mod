@@ -1,20 +1,29 @@
 ﻿{
+    "type":  "minecraft:crafting_shaped",
+    "category":  "equipment",
+    "pattern":  [
+                    "EJE",
+                    "MBM",
+                    " A "
+                ],
     "key":  {
-                "E":  {
-                          "item":  "minecraft:amethyst_shard"
+                "A":  {
+                          "item":  "minecraft:amethyst_block"
                       },
                 "M":  {
                           "item":  "cyber-cultivation-mod:middle_grade_spirit_stone"
+                      },
+                "J":  {
+                          "item":  "minecraft:amethyst_shard"
+                      },
+                "E":  {
+                          "item":  "minecraft:emerald"
+                      },
+                "B":  {
+                          "item":  "cyber-cultivation-mod:spirit_stone_boots"
                       }
             },
-    "category":  "equipment",
-    "pattern":  [
-                    "M M",
-                    "MEM"
-                ],
     "result":  {
-                   "id":  "cyber-cultivation-mod:mystic_jade_boots",
-                   "count":  1
-               },
-    "type":  "minecraft:crafting_shaped"
+                   "id":  "cyber-cultivation-mod:mystic_jade_boots"
+               }
 }

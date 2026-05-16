@@ -1,19 +1,24 @@
 ﻿{
+    "type":  "minecraft:crafting_shapeless",
+    "category":  "misc",
     "ingredients":  [
                         {
                             "item":  "cyber-cultivation-mod:spirit_herb"
                         },
                         {
+                            "item":  "cyber-cultivation-mod:moonlight_lotus"
+                        },
+                        {
                             "item":  "minecraft:amethyst_shard"
+                        },
+                        {
+                            "item":  "minecraft:glass_bottle"
                         },
                         {
                             "item":  "cyber-cultivation-mod:low_grade_spirit_stone"
                         }
                     ],
-    "category":  "misc",
     "result":  {
-                   "id":  "cyber-cultivation-mod:alchemy_essence",
-                   "count":  1
-               },
-    "type":  "minecraft:crafting_shapeless"
+                   "id":  "cyber-cultivation-mod:alchemy_essence"
+               }
 }

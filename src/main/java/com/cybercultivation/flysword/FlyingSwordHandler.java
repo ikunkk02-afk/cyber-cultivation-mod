@@ -6,6 +6,7 @@ import com.cybercultivation.cultivation.CultivationDiscipline;
 import com.cybercultivation.util.FlyingSwordHelper;
 import com.cybercultivation.util.ParticleColorHelper;
 import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -14,6 +15,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Abilities;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 
 public final class FlyingSwordHandler {
@@ -87,11 +89,8 @@ public final class FlyingSwordHandler {
     }
 
     public static void onServerTick(MinecraftServer server) {
-        tickCounter++;
-        if (tickCounter < TICKS_PER_SECOND) {
-            return;
-        }
-        tickCounter = 0;
+        tickCounter = (tickCounter + 1) % TICKS_PER_SECOND;
+        boolean drainQiThisTick = tickCounter == 0;
 
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             PlayerQiData data = PlayerQiManager.get(player);
@@ -112,16 +111,20 @@ public final class FlyingSwordHandler {
             }
             data.setFlyingSwordItemId(FlyingSwordHelper.getItemId(sword));
 
-            if (data.getCurrentQi() < QI_COST_PER_SECOND) {
-                player.sendSystemMessage(Component.literal("\u7075\u529b\u4e0d\u8db3\uff0c\u5fa1\u5251\u72b6\u6001\u5df2\u7ed3\u675f\u3002"));
-                exit(player, false, true);
-                continue;
-            }
+            if (drainQiThisTick) {
+                if (data.getCurrentQi() < QI_COST_PER_SECOND) {
+                    player.sendSystemMessage(Component.literal("\u7075\u529b\u4e0d\u8db3\uff0c\u5fa1\u5251\u72b6\u6001\u5df2\u7ed3\u675f\u3002"));
+                    exit(player, false, true);
+                    continue;
+                }
 
-            data.setCurrentQi(data.getCurrentQi() - QI_COST_PER_SECOND);
-            spawnFlyingSwordEffects(player);
-            PlayerQiManager.syncToClient(player);
-            PlayerQiManager.broadcastAnimationState(player);
+                data.setCurrentQi(data.getCurrentQi() - QI_COST_PER_SECOND);
+                PlayerQiManager.syncToClient(player);
+                PlayerQiManager.broadcastAnimationState(player);
+            }
+            if (player.tickCount % 2 == 0) {
+                spawnFlyingSwordEffects(player, drainQiThisTick);
+            }
         }
     }
 
@@ -157,34 +160,72 @@ public final class FlyingSwordHandler {
                 || data.getSubDisciplines().contains(CultivationDiscipline.SWORD));
     }
 
-    private static void spawnFlyingSwordEffects(ServerPlayer player) {
+    private static void spawnFlyingSwordEffects(ServerPlayer player, boolean playSound) {
         ServerLevel level = player.serverLevel();
-        double x = player.getX();
-        double y = player.getY() + 0.08;
-        double z = player.getZ();
+        Vec3 velocity = player.getDeltaMovement();
+        Vec3 direction = velocity.lengthSqr() > 1.0E-4D
+                ? velocity.normalize()
+                : player.getLookAngle().normalize();
+        Vec3 horizontal = new Vec3(direction.x, 0.0D, direction.z);
+        if (horizontal.lengthSqr() < 1.0E-4D) {
+            horizontal = new Vec3(player.getLookAngle().x, 0.0D, player.getLookAngle().z);
+        }
+        if (horizontal.lengthSqr() < 1.0E-4D) {
+            horizontal = new Vec3(0.0D, 0.0D, 1.0D);
+        }
+        horizontal = horizontal.normalize();
+        Vec3 right = new Vec3(-horizontal.z, 0.0D, horizontal.x);
+        Vec3 origin = player.position().add(0.0D, 0.12D, 0.0D);
+        Vec3 rear = origin.subtract(horizontal.scale(0.95D));
 
         ItemStack sword = FlyingSwordHelper.getHeldFlyingSword(player);
         Vector3f color = sword.isEmpty()
                 ? new Vector3f(0.20F, 0.90F, 0.95F)
                 : ParticleColorHelper.getFlyingSwordTrailColor(sword);
+        DustParticleOptions trail = new DustParticleOptions(color, 1.05F);
+        DustParticleOptions spark = new DustParticleOptions(new Vector3f(0.85F, 1.00F, 1.00F), 0.55F);
 
-        for (int i = 0; i < 5; i++) {
-            double offsetX = (level.random.nextDouble() - 0.5) * 0.75;
-            double offsetZ = (level.random.nextDouble() - 0.5) * 0.75;
+        for (int i = 0; i < 10; i++) {
+            double progress = i / 9.0D;
+            double side = Math.sin((player.tickCount + i) * 0.55D) * 0.38D;
+            Vec3 pos = rear
+                    .subtract(horizontal.scale(progress * 1.35D))
+                    .add(right.scale(side))
+                    .add(0.0D, 0.04D + progress * 0.16D, 0.0D);
             level.sendParticles(
-                    new DustParticleOptions(color, 0.85F),
-                    x + offsetX, y, z + offsetZ,
-                    1, 0.0, 0.02, 0.0, 0.01
+                    trail,
+                    pos.x, pos.y, pos.z,
+                    1,
+                    -horizontal.x * 0.03D,
+                    0.015D,
+                    -horizontal.z * 0.03D,
+                    0.01D
             );
         }
 
-        level.playSound(
-                null,
-                player.blockPosition(),
-                SoundEvents.AMETHYST_BLOCK_CHIME,
-                SoundSource.PLAYERS,
-                0.18F,
-                1.55F
-        );
+        for (int i = 0; i < 4; i++) {
+            double angle = player.tickCount * 0.22D + i * Math.PI * 0.5D;
+            Vec3 pos = origin
+                    .add(right.scale(Math.cos(angle) * 0.62D))
+                    .add(0.0D, Math.sin(angle) * 0.10D, 0.0D);
+            level.sendParticles(spark, pos.x, pos.y, pos.z, 1, 0.0D, 0.02D, 0.0D, 0.01D);
+        }
+
+        if (player.tickCount % 6 == 0) {
+            level.sendParticles(ParticleTypes.END_ROD,
+                    rear.x, rear.y + 0.08D, rear.z,
+                    2, 0.18D, 0.05D, 0.18D, 0.01D);
+        }
+
+        if (playSound) {
+            level.playSound(
+                    null,
+                    player.blockPosition(),
+                    SoundEvents.AMETHYST_BLOCK_CHIME,
+                    SoundSource.PLAYERS,
+                    0.18F,
+                    1.55F
+            );
+        }
     }
 }

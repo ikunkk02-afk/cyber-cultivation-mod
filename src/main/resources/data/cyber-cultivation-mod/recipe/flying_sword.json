@@ -1,27 +1,29 @@
-{
-  "type": "minecraft:crafting_shaped",
-  "category": "equipment",
-  "key": {
-    "A": {
-      "item": "minecraft:amethyst_shard"
-    },
-    "D": {
-      "item": "minecraft:diamond"
-    },
-    "I": {
-      "item": "minecraft:iron_ingot"
-    },
-    "S": {
-      "item": "minecraft:stick"
-    }
-  },
-  "pattern": [
-    " A ",
-    "IDI",
-    " S "
-  ],
-  "result": {
-    "count": 1,
-    "id": "cyber-cultivation-mod:flying_sword"
-  }
+﻿{
+    "type":  "minecraft:crafting_shaped",
+    "category":  "equipment",
+    "pattern":  [
+                    "AEA",
+                    "MSM",
+                    " T "
+                ],
+    "key":  {
+                "A":  {
+                          "item":  "minecraft:amethyst_shard"
+                      },
+                "T":  {
+                          "item":  "cyber-cultivation-mod:array_core"
+                      },
+                "M":  {
+                          "item":  "cyber-cultivation-mod:middle_grade_spirit_stone"
+                      },
+                "E":  {
+                          "item":  "minecraft:ender_pearl"
+                      },
+                "S":  {
+                          "item":  "cyber-cultivation-mod:xuan_iron_sword"
+                      }
+            },
+    "result":  {
+                   "id":  "cyber-cultivation-mod:flying_sword"
+               }
 }

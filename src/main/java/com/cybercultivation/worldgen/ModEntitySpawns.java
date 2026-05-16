@@ -1,6 +1,7 @@
 package com.cybercultivation.worldgen;
 
 import com.cybercultivation.CyberCultivationMod;
+import com.cybercultivation.dimension.ModDimensions;
 import com.cybercultivation.entity.ModEntities;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -50,6 +51,38 @@ public final class ModEntitySpawns {
                 5,
                 1,
                 2
+        );
+        BiomeModifications.addSpawn(
+                BiomeSelectors.includeByKey(ModDimensions.HERBAL_REALM_BIOME),
+                MobCategory.CREATURE,
+                ModEntities.SPIRIT_DEER,
+                16,
+                2,
+                4
+        );
+        BiomeModifications.addSpawn(
+                BiomeSelectors.includeByKey(ModDimensions.HERBAL_REALM_BIOME),
+                MobCategory.CREATURE,
+                ModEntities.SPIRIT_CRANE,
+                12,
+                1,
+                3
+        );
+        BiomeModifications.addSpawn(
+                BiomeSelectors.includeByKey(ModDimensions.HERBAL_REALM_BIOME),
+                MobCategory.CREATURE,
+                ModEntities.STONE_SHELL_TURTLE,
+                8,
+                1,
+                2
+        );
+        BiomeModifications.addSpawn(
+                BiomeSelectors.includeByKey(ModDimensions.HERBAL_REALM_BIOME),
+                MobCategory.MONSTER,
+                ModEntities.DEMON_WOLF,
+                35,
+                1,
+                4
         );
         SpawnPlacements.register(ModEntities.SPIRIT_DEER, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
         SpawnPlacements.register(ModEntities.SPIRIT_CRANE, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);

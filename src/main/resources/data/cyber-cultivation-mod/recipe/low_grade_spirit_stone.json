@@ -1,19 +1,26 @@
 ﻿{
-    "ingredients":  [
-                        {
-                            "item":  "minecraft:amethyst_shard"
-                        },
-                        {
-                            "item":  "minecraft:quartz"
-                        },
-                        {
-                            "item":  "minecraft:redstone"
-                        }
-                    ],
+    "type":  "minecraft:crafting_shaped",
     "category":  "misc",
+    "pattern":  [
+                    "AQA",
+                    "RCR",
+                    "AQA"
+                ],
+    "key":  {
+                "A":  {
+                          "item":  "minecraft:amethyst_shard"
+                      },
+                "C":  {
+                          "item":  "minecraft:coal"
+                      },
+                "R":  {
+                          "item":  "minecraft:redstone"
+                      },
+                "Q":  {
+                          "item":  "minecraft:quartz"
+                      }
+            },
     "result":  {
-                   "id":  "cyber-cultivation-mod:low_grade_spirit_stone",
-                   "count":  1
-               },
-    "type":  "minecraft:crafting_shapeless"
+                   "id":  "cyber-cultivation-mod:low_grade_spirit_stone"
+               }
 }

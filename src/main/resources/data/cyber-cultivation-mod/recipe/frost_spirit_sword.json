@@ -1,19 +1,29 @@
 ﻿{
-    "ingredients":  [
-                        {
-                            "item":  "cyber-cultivation-mod:spirit_stone_sword"
-                        },
-                        {
-                            "item":  "minecraft:snowball"
-                        },
-                        {
-                            "item":  "minecraft:blue_ice"
-                        }
-                    ],
+    "type":  "minecraft:crafting_shaped",
     "category":  "equipment",
+    "pattern":  [
+                    "BFB",
+                    "MSM",
+                    " I "
+                ],
+    "key":  {
+                "F":  {
+                          "item":  "cyber-cultivation-mod:frost_flower"
+                      },
+                "M":  {
+                          "item":  "cyber-cultivation-mod:middle_grade_spirit_stone"
+                      },
+                "B":  {
+                          "item":  "minecraft:blue_ice"
+                      },
+                "S":  {
+                          "item":  "cyber-cultivation-mod:spirit_stone_sword"
+                      },
+                "I":  {
+                          "item":  "minecraft:packed_ice"
+                      }
+            },
     "result":  {
-                   "id":  "cyber-cultivation-mod:frost_spirit_sword",
-                   "count":  1
-               },
-    "type":  "minecraft:crafting_shapeless"
+                   "id":  "cyber-cultivation-mod:frost_spirit_sword"
+               }
 }

@@ -1,4 +1,6 @@
 ﻿{
+    "type":  "minecraft:crafting_shapeless",
+    "category":  "food",
     "ingredients":  [
                         {
                             "item":  "cyber-cultivation-mod:spirit_herb"
@@ -8,12 +10,13 @@
                         },
                         {
                             "item":  "cyber-cultivation-mod:alchemy_essence"
+                        },
+                        {
+                            "item":  "minecraft:glow_berries"
                         }
                     ],
-    "category":  "misc",
     "result":  {
                    "id":  "cyber-cultivation-mod:qi_recovery_pill",
-                   "count":  1
-               },
-    "type":  "minecraft:crafting_shapeless"
+                   "count":  2
+               }
 }

@@ -105,5 +105,10 @@
   "block.cyber-cultivation-mod.golden_spirit_bamboo": "Golden Spirit Bamboo",
   "block.cyber-cultivation-mod.earth_root_ginseng": "Earth Root Ginseng",
   "block.cyber-cultivation-mod.soul_lantern_flower": "Soul Lantern Flower",
-  "block.cyber-cultivation-mod.five_element_fruit": "Five Element Fruit"
+  "block.cyber-cultivation-mod.five_element_fruit": "Five Element Fruit",
+  "item.cyber-cultivation-mod.realm_token": "Realm Token",
+  "item.cyber-cultivation-mod.realm_core": "Realm Core",
+  "entity.cyber-cultivation-mod.herbal_realm_guardian": "Herbal Realm Guardian",
+  "biome.cyber-cultivation-mod.herbal_realm_biome": "Herbal Secret Realm",
+  "dimension.cyber-cultivation-mod.herbal_secret_realm": "Herbal Secret Realm"
 }

@@ -1,6 +1,6 @@
 {
   "block.cyber-cultivation-mod.cultivation_altar": "修仙祭坛",
-  "block.cyber-cultivation-mod.cultivation_table": "修仙台",
+  "block.cyber-cultivation-mod.cultivation_table": "修仙工作台",
   "entity.minecraft.villager.cultivation_merchant": "修仙商人",
   "entity.minecraft.villager.cyber-cultivation-mod.cultivation_merchant": "修仙商人",
   "item.cyber-cultivation-mod.spirit_stone": "灵石",
@@ -83,7 +83,7 @@
   "effect.cyber-cultivation-mod.sword_intent": "剑意",
   "effect.cyber-cultivation-mod.body_tempering": "淬体",
   "effect.cyber-cultivation-mod.alchemy_breath": "丹息",
-  "effect.cyber-cultivation-mod.talisman_blessing": "符箓加持",
+  "effect.cyber-cultivation-mod.talisman_blessing": "符篆加持",
   "effect.cyber-cultivation-mod.formation_guard": "阵法守护",
   "effect.cyber-cultivation-mod.medical_regeneration": "药力回春",
   "effect.cyber-cultivation-mod.inner_demon": "心魔",
@@ -101,9 +101,14 @@
   "entity.cyber-cultivation-mod.spirit_crane": "灵鹤",
   "entity.cyber-cultivation-mod.demon_wolf": "魔狼",
   "entity.cyber-cultivation-mod.stone_shell_turtle": "石甲灵龟",
-  "block.cyber-cultivation-mod.moonlight_lotus": "月光莲",
+  "block.cyber-cultivation-mod.moonlight_lotus": "月华莲",
   "block.cyber-cultivation-mod.golden_spirit_bamboo": "金灵竹",
-  "block.cyber-cultivation-mod.earth_root_ginseng": "地根参",
+  "block.cyber-cultivation-mod.earth_root_ginseng": "地脉参",
   "block.cyber-cultivation-mod.soul_lantern_flower": "魂灯花",
-  "block.cyber-cultivation-mod.five_element_fruit": "五行果"
+  "block.cyber-cultivation-mod.five_element_fruit": "五行灵果",
+  "item.cyber-cultivation-mod.realm_token": "秘境令牌",
+  "item.cyber-cultivation-mod.realm_core": "秘境核心",
+  "entity.cyber-cultivation-mod.herbal_realm_guardian": "秘境守护者",
+  "biome.cyber-cultivation-mod.herbal_realm_biome": "灵药秘境",
+  "dimension.cyber-cultivation-mod.herbal_secret_realm": "灵药秘境"
 }

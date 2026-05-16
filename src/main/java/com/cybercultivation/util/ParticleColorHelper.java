@@ -2,7 +2,6 @@ package com.cybercultivation.util;
 
 import com.cybercultivation.cultivation.CultivationPath;
 import com.cybercultivation.item.ModItems;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Vector3f;
@@ -64,18 +63,6 @@ public final class ParticleColorHelper {
 
     public static int getMeditationPathColor(CultivationPath path) {
         return MEDITATION_PATH_COLORS.getOrDefault(path, 0xCCFFFFFF);
-    }
-
-    public static String getSwordAnimationName(ResourceLocation itemId) {
-        if (itemId == null) return "normal_swing";
-        return switch (itemId.getPath()) {
-            case "wind_spirit_sword" -> "wind_slash";
-            case "starfall_sword" -> "heavy_slash";
-            case "heavenly_judgement_sword" -> "heavenly_strike";
-            case "human_merit_sword" -> "human_slash";
-            case "demon_soul_sword" -> "demon_slash";
-            default -> "normal_swing";
-        };
     }
 
     public static boolean isModSword(ItemStack stack) {

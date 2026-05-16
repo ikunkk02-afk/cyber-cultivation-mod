@@ -29,9 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public final class CultivationAnimationController {
     private static final int BASE_LAYER_PRIORITY = 42;
-    private static final int ATTACK_LAYER_PRIORITY = 43;
     private static final Map<UUID, ModifierLayer<IAnimation>> LAYERS = new ConcurrentHashMap<>();
-    private static final Map<UUID, ModifierLayer<IAnimation>> ATTACK_LAYERS = new ConcurrentHashMap<>();
     private static final Map<UUID, ActiveAnim> ACTIVE_ANIMS = new ConcurrentHashMap<>();
 
     private CultivationAnimationController() {
@@ -58,11 +56,6 @@ public final class CultivationAnimationController {
         ModifierLayer<IAnimation> baseLayer = new ModifierLayer<>();
         stack.addAnimLayer(BASE_LAYER_PRIORITY, baseLayer);
         LAYERS.put(player.getUUID(), baseLayer);
-
-        ModifierLayer<IAnimation> attackLayer = new ModifierLayer<>();
-        stack.addAnimLayer(ATTACK_LAYER_PRIORITY, attackLayer);
-        ATTACK_LAYERS.put(player.getUUID(), attackLayer);
-
         ACTIVE_ANIMS.remove(player.getUUID());
     }
 
@@ -89,15 +82,6 @@ public final class CultivationAnimationController {
         Entity entity = client.level.getEntity(payload.attackerEntityId());
         if (!(entity instanceof Player player)) return;
 
-        String animName = ParticleColorHelper.getSwordAnimationName(payload.swordItemId());
-        IAnimation anim = CultivationPlayerAnimations.createAttack(animName);
-        if (anim != null) {
-            ModifierLayer<IAnimation> layer = ATTACK_LAYERS.get(player.getUUID());
-            if (layer != null) {
-                layer.setAnimation(anim);
-            }
-        }
-
         if (!(entity instanceof AbstractClientPlayer)) return;
         ResourceLocation itemId = payload.swordItemId();
         Vector3f color = ParticleColorHelper.getSwordQiColor(
@@ -107,18 +91,40 @@ public final class CultivationAnimationController {
     }
 
     private static void spawnLocalSwordQi(ClientLevel level, Vec3 origin, Vec3 look, Vector3f color) {
-        Vec3 right = look.cross(new Vec3(0, 1, 0)).normalize();
-        for (int i = 0; i < 6; i++) {
-            double progress = (double) i / 5.0;
-            double spread = (progress - 0.5) * 1.2;
-            double forward = 0.5 + progress * 0.8;
+        Vec3 right = look.cross(new Vec3(0, 1, 0));
+        if (right.lengthSqr() < 1.0E-4D) {
+            right = new Vec3(1, 0, 0);
+        } else {
+            right = right.normalize();
+        }
+        Vec3 up = right.cross(look).normalize();
+        for (int i = 0; i < 18; i++) {
+            double progress = (double) i / 17.0;
+            double arc = Math.sin(progress * Math.PI);
+            double spread = (progress - 0.5) * 2.2;
+            double forward = 0.35 + progress * 1.65;
             Vec3 pos = origin
                     .add(look.scale(forward))
-                    .add(right.scale(spread));
+                    .add(right.scale(spread))
+                    .add(up.scale(arc * 0.35));
             level.addParticle(
-                    new DustParticleOptions(color, 0.8F),
+                    new DustParticleOptions(color, 1.05F),
                     pos.x, pos.y, pos.z,
-                    look.x * 0.15, look.y * 0.15 + 0.05, look.z * 0.15
+                    look.x * 0.18 + right.x * spread * 0.02,
+                    look.y * 0.18 + 0.05,
+                    look.z * 0.18 + right.z * spread * 0.02
+            );
+        }
+        for (int i = 0; i < 8; i++) {
+            double angle = i * Math.PI * 0.25;
+            Vec3 pos = origin
+                    .add(look.scale(1.15))
+                    .add(right.scale(Math.cos(angle) * 0.42))
+                    .add(up.scale(Math.sin(angle) * 0.42));
+            level.addParticle(
+                    new DustParticleOptions(new Vector3f(0.92F, 1.00F, 1.00F), 0.55F),
+                    pos.x, pos.y, pos.z,
+                    look.x * 0.08, look.y * 0.08, look.z * 0.08
             );
         }
     }

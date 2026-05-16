@@ -1,27 +1,32 @@
-{
-  "type": "minecraft:crafting_shaped",
-  "category": "building",
-  "key": {
-    "A": {
-      "item": "minecraft:amethyst_shard"
-    },
-    "B": {
-      "item": "minecraft:book"
-    },
-    "P": {
-      "tag": "minecraft:planks"
-    },
-    "S": {
-      "item": "cyber-cultivation-mod:spirit_stone"
-    }
-  },
-  "pattern": [
-    "ASA",
-    "B B",
-    "PPP"
-  ],
-  "result": {
-    "count": 1,
-    "id": "cyber-cultivation-mod:cultivation_table"
-  }
+﻿{
+    "type":  "minecraft:crafting_shaped",
+    "category":  "misc",
+    "pattern":  [
+                    "ABA",
+                    "PCP",
+                    "SLS"
+                ],
+    "key":  {
+                "S":  {
+                          "item":  "minecraft:smooth_stone"
+                      },
+                "P":  {
+                          "item":  "minecraft:polished_deepslate"
+                      },
+                "L":  {
+                          "item":  "cyber-cultivation-mod:low_grade_spirit_stone"
+                      },
+                "B":  {
+                          "item":  "minecraft:book"
+                      },
+                "C":  {
+                          "item":  "minecraft:crafting_table"
+                      },
+                "A":  {
+                          "item":  "minecraft:amethyst_shard"
+                      }
+            },
+    "result":  {
+                   "id":  "cyber-cultivation-mod:cultivation_table"
+               }
 }

@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -70,12 +71,16 @@ public final class FlyingSwordVisualRenderer {
         }
 
         Vec3 pos = player.getPosition(tickDelta);
+        Vec3 direction = getFlightDirection(player);
+        double horizontalSpeed = Math.sqrt(direction.x * direction.x + direction.z * direction.z);
+        float yaw = (float) (Mth.atan2(direction.z, direction.x) * Mth.RAD_TO_DEG) - 90.0F;
+        float pitch = (float) -(Mth.atan2(direction.y, Math.max(horizontalSpeed, 1.0E-4D)) * Mth.RAD_TO_DEG);
         ItemStack stack = new ItemStack(item);
 
         matrices.pushPose();
         matrices.translate(pos.x - cameraPos.x, pos.y - cameraPos.y + FOOT_OFFSET, pos.z - cameraPos.z);
-        matrices.mulPose(Axis.YP.rotationDegrees(-player.getViewYRot(tickDelta)));
-        matrices.mulPose(Axis.XP.rotationDegrees(90.0F));
+        matrices.mulPose(Axis.YP.rotationDegrees(-yaw));
+        matrices.mulPose(Axis.XP.rotationDegrees(90.0F + Mth.clamp(pitch, -35.0F, 35.0F)));
         matrices.mulPose(Axis.ZP.rotationDegrees(-45.0F));
         matrices.scale(SWORD_SCALE, SWORD_SCALE, SWORD_SCALE);
 
@@ -90,5 +95,18 @@ public final class FlyingSwordVisualRenderer {
                 player.getId()
         );
         matrices.popPose();
+    }
+
+    private static Vec3 getFlightDirection(AbstractClientPlayer player) {
+        Vec3 velocity = player.getDeltaMovement();
+        if (velocity.lengthSqr() > 1.0E-4D) {
+            return velocity.normalize();
+        }
+
+        Vec3 look = player.getLookAngle();
+        if (look.lengthSqr() > 1.0E-4D) {
+            return look.normalize();
+        }
+        return new Vec3(0.0D, 0.0D, 1.0D);
     }
 }

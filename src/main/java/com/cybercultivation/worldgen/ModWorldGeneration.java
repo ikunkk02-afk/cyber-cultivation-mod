@@ -1,6 +1,7 @@
 package com.cybercultivation.worldgen;
 
 import com.cybercultivation.CyberCultivationMod;
+import com.cybercultivation.dimension.ModDimensions;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.resources.ResourceKey;
@@ -98,7 +99,26 @@ public final class ModWorldGeneration {
                 GenerationStep.Decoration.VEGETAL_DECORATION,
                 FIVE_ELEMENT_FRUIT_PATCH
         );
+        addRealmFeature(SPIRIT_HERB_PATCH);
+        addRealmFeature(SPIRIT_RICE_PATCH);
+        addRealmFeature(FLAME_FLOWER_PATCH);
+        addRealmFeature(FROST_FLOWER_PATCH);
+        addRealmFeature(THUNDER_GRASS_PATCH);
+        addRealmFeature(MOONLIGHT_LOTUS_PATCH);
+        addRealmFeature(GOLDEN_SPIRIT_BAMBOO_PATCH);
+        addRealmFeature(EARTH_ROOT_GINSENG_PATCH);
+        addRealmFeature(SOUL_LANTERN_FLOWER_PATCH);
+        addRealmFeature(FIVE_ELEMENT_FRUIT_PATCH);
+        addRealmFeature(DEMON_BLOOD_VINE_PATCH);
         CyberCultivationMod.LOGGER.info("Registering Cyber Cultivation world generation");
+    }
+
+    private static void addRealmFeature(ResourceKey<PlacedFeature> feature) {
+        BiomeModifications.addFeature(
+                BiomeSelectors.includeByKey(ModDimensions.HERBAL_REALM_BIOME),
+                GenerationStep.Decoration.VEGETAL_DECORATION,
+                feature
+        );
     }
 
     private static ResourceKey<PlacedFeature> placedFeature(String name) {

@@ -1,4 +1,11 @@
 ﻿{
+    "type":  "minecraft:crafting_shaped",
+    "category":  "equipment",
+    "pattern":  [
+                    " I ",
+                    " I ",
+                    "LSL"
+                ],
     "key":  {
                 "L":  {
                           "item":  "cyber-cultivation-mod:low_grade_spirit_stone"
@@ -10,15 +17,7 @@
                           "item":  "minecraft:iron_ingot"
                       }
             },
-    "category":  "equipment",
-    "pattern":  [
-                    " I ",
-                    " I ",
-                    "LS "
-                ],
     "result":  {
-                   "id":  "cyber-cultivation-mod:xuan_iron_sword",
-                   "count":  1
-               },
-    "type":  "minecraft:crafting_shaped"
+                   "id":  "cyber-cultivation-mod:xuan_iron_sword"
+               }
 }

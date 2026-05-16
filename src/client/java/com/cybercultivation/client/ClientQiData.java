@@ -23,6 +23,8 @@ public class ClientQiData {
     private static boolean flyingSword;
     private static ResourceLocation flyingSwordItemId;
     private static boolean meditating;
+    private static boolean herbalRealm;
+    private static int herbalRealmTicksRemaining;
 
     public static int getCurrentQi() {
         return currentQi;
@@ -82,6 +84,21 @@ public class ClientQiData {
         return meditating;
     }
 
+    public static boolean isInHerbalRealm() {
+        return herbalRealm;
+    }
+
+    public static int getHerbalRealmTicksRemaining() {
+        return Math.max(0, herbalRealmTicksRemaining);
+    }
+
+    public static String getHerbalRealmTimeDisplayName() {
+        int totalSeconds = getHerbalRealmTicksRemaining() / 20;
+        int minutes = totalSeconds / 60;
+        int seconds = totalSeconds % 60;
+        return String.format("%02d:%02d", minutes, seconds);
+    }
+
     public static void set(int currentQi,
                            int maxQi,
                            CultivationPath selectedPath,
@@ -90,7 +107,9 @@ public class ClientQiData {
                            CultivationElement element,
                            boolean flyingSword,
                            ResourceLocation flyingSwordItemId,
-                           boolean meditating) {
+                           boolean meditating,
+                           boolean herbalRealm,
+                           int herbalRealmTicksRemaining) {
         ClientQiData.currentQi = currentQi;
         ClientQiData.maxQi = maxQi;
         ClientQiData.selectedPath = selectedPath;
@@ -101,5 +120,7 @@ public class ClientQiData {
         ClientQiData.flyingSword = flyingSword;
         ClientQiData.flyingSwordItemId = flyingSword ? flyingSwordItemId : null;
         ClientQiData.meditating = meditating;
+        ClientQiData.herbalRealm = herbalRealm;
+        ClientQiData.herbalRealmTicksRemaining = Math.max(0, herbalRealmTicksRemaining);
     }
 }

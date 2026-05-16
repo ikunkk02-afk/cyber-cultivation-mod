@@ -1,22 +1,29 @@
 ﻿{
-    "ingredients":  [
-                        {
-                            "item":  "cyber-cultivation-mod:starfall_helmet"
-                        },
-                        {
-                            "item":  "cyber-cultivation-mod:high_grade_spirit_stone"
-                        },
-                        {
-                            "item":  "minecraft:diamond"
-                        },
-                        {
-                            "item":  "minecraft:amethyst_shard"
-                        }
-                    ],
+    "type":  "minecraft:crafting_shaped",
     "category":  "equipment",
+    "pattern":  [
+                    "ACA",
+                    "HBH",
+                    " D "
+                ],
+    "key":  {
+                "A":  {
+                          "item":  "minecraft:amethyst_block"
+                      },
+                "H":  {
+                          "item":  "cyber-cultivation-mod:high_grade_spirit_stone"
+                      },
+                "D":  {
+                          "item":  "minecraft:diamond"
+                      },
+                "B":  {
+                          "item":  "cyber-cultivation-mod:starfall_helmet"
+                      },
+                "C":  {
+                          "item":  "cyber-cultivation-mod:realm_core"
+                      }
+            },
     "result":  {
-                   "id":  "cyber-cultivation-mod:heavenly_dao_helmet",
-                   "count":  1
-               },
-    "type":  "minecraft:crafting_shapeless"
+                   "id":  "cyber-cultivation-mod:heavenly_dao_helmet"
+               }
 }

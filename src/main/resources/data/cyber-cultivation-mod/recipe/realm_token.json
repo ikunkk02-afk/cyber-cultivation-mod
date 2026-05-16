@@ -1,0 +1,32 @@
+﻿{
+    "type":  "minecraft:crafting_shaped",
+    "category":  "misc",
+    "pattern":  [
+                    "ETE",
+                    "AHA",
+                    "SRS"
+                ],
+    "key":  {
+                "H":  {
+                          "item":  "cyber-cultivation-mod:high_grade_spirit_stone"
+                      },
+                "S":  {
+                          "item":  "cyber-cultivation-mod:spirit_herb"
+                      },
+                "E":  {
+                          "item":  "minecraft:ender_pearl"
+                      },
+                "R":  {
+                          "item":  "minecraft:amethyst_shard"
+                      },
+                "T":  {
+                          "item":  "cyber-cultivation-mod:talisman_paper"
+                      },
+                "A":  {
+                          "item":  "cyber-cultivation-mod:array_core"
+                      }
+            },
+    "result":  {
+                   "id":  "cyber-cultivation-mod:realm_token"
+               }
+}

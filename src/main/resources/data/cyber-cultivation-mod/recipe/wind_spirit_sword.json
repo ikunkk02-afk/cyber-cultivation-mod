@@ -1,19 +1,29 @@
 ﻿{
-    "ingredients":  [
-                        {
-                            "item":  "cyber-cultivation-mod:spirit_stone_sword"
-                        },
-                        {
-                            "item":  "minecraft:feather"
-                        },
-                        {
-                            "item":  "minecraft:emerald"
-                        }
-                    ],
+    "type":  "minecraft:crafting_shaped",
     "category":  "equipment",
+    "pattern":  [
+                    "FWF",
+                    "MSM",
+                    " P "
+                ],
+    "key":  {
+                "W":  {
+                          "item":  "minecraft:wind_charge"
+                      },
+                "F":  {
+                          "item":  "minecraft:feather"
+                      },
+                "P":  {
+                          "item":  "minecraft:phantom_membrane"
+                      },
+                "M":  {
+                          "item":  "cyber-cultivation-mod:middle_grade_spirit_stone"
+                      },
+                "S":  {
+                          "item":  "cyber-cultivation-mod:spirit_stone_sword"
+                      }
+            },
     "result":  {
-                   "id":  "cyber-cultivation-mod:wind_spirit_sword",
-                   "count":  1
-               },
-    "type":  "minecraft:crafting_shapeless"
+                   "id":  "cyber-cultivation-mod:wind_spirit_sword"
+               }
 }

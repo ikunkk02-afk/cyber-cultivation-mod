@@ -8,7 +8,7 @@ import org.lwjgl.glfw.GLFW;
 public class QiHudOverlay {
 
     private static final int PANEL_WIDTH = 180;
-    private static final int PANEL_HEIGHT = 124;
+    private static final int PANEL_HEIGHT = 138;
     private static final int BAR_WIDTH = 100;
     private static final int BAR_HEIGHT = 8;
 
@@ -110,6 +110,11 @@ public class QiHudOverlay {
             int row4Y = 108;
             graphics.drawString(client.font, "\u5fa1\u5251\u6cd5\u5251\uff1a", 16, row4Y, COLOR_LABEL, false);
             graphics.drawString(client.font, ClientQiData.getFlyingSwordItemDisplayName(), 82, row4Y, COLOR_VALUE, false);
+        }
+        if (ClientQiData.isInHerbalRealm()) {
+            int realmY = ClientQiData.isFlyingSword() ? 122 : 108;
+            graphics.drawString(client.font, "\u79d8\u5883\u5269\u4f59\u65f6\u95f4\uff1a", 16, realmY, COLOR_LABEL, false);
+            graphics.drawString(client.font, ClientQiData.getHerbalRealmTimeDisplayName(), 100, realmY, 0xFF9EFFD2, false);
         }
     }
 

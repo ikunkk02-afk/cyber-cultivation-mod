@@ -42,7 +42,9 @@ public class CyberCultivationModClient implements ClientModInitializer {
                         payload.element(),
                         payload.flyingSword(),
                         payload.flyingSwordItemId(),
-                        payload.meditating()
+                        payload.meditating(),
+                        payload.herbalRealm(),
+                        payload.herbalRealmTicksRemaining()
                 );
                 if (context.client().player != null) {
                     FlyingSwordVisualState.set(context.client().player.getId(), payload.flyingSword(), payload.flyingSwordItemId());

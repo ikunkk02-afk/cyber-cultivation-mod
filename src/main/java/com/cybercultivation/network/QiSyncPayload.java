@@ -19,7 +19,9 @@ public record QiSyncPayload(int currentQi,
                             CultivationElement element,
                             boolean flyingSword,
                             ResourceLocation flyingSwordItemId,
-                            boolean meditating) implements CustomPacketPayload {
+                            boolean meditating,
+                            boolean herbalRealm,
+                            int herbalRealmTicksRemaining) implements CustomPacketPayload {
 
     public QiSyncPayload {
         subDisciplines = List.copyOf(subDisciplines);
@@ -40,6 +42,8 @@ public record QiSyncPayload(int currentQi,
                         buf.writeBoolean(value.flyingSword());
                         writeNullableResourceLocation(buf, value.flyingSwordItemId());
                         buf.writeBoolean(value.meditating());
+                        buf.writeBoolean(value.herbalRealm());
+                        buf.writeVarInt(value.herbalRealmTicksRemaining());
                     },
                     buf -> {
                         int currentQi = buf.readInt();
@@ -55,7 +59,9 @@ public record QiSyncPayload(int currentQi,
                         boolean flyingSword = buf.readBoolean();
                         ResourceLocation flyingSwordItemId = readNullableResourceLocation(buf);
                         boolean meditating = buf.readBoolean();
-                        return new QiSyncPayload(currentQi, maxQi, selectedPath, mainDiscipline, subDisciplines, element, flyingSword, flyingSwordItemId, meditating);
+                        boolean herbalRealm = buf.readBoolean();
+                        int herbalRealmTicksRemaining = buf.readVarInt();
+                        return new QiSyncPayload(currentQi, maxQi, selectedPath, mainDiscipline, subDisciplines, element, flyingSword, flyingSwordItemId, meditating, herbalRealm, herbalRealmTicksRemaining);
                     }
             );
 

@@ -1,17 +1,20 @@
 ﻿{
+    "type":  "minecraft:crafting_shaped",
+    "category":  "misc",
+    "pattern":  [
+                    " L ",
+                    "LAL",
+                    " L "
+                ],
     "key":  {
+                "A":  {
+                          "item":  "minecraft:amethyst_shard"
+                      },
                 "L":  {
                           "item":  "cyber-cultivation-mod:low_grade_spirit_stone"
                       }
             },
-    "category":  "misc",
-    "pattern":  [
-                    "LL",
-                    "LL"
-                ],
     "result":  {
-                   "id":  "cyber-cultivation-mod:spirit_stone",
-                   "count":  1
-               },
-    "type":  "minecraft:crafting_shaped"
+                   "id":  "cyber-cultivation-mod:spirit_stone"
+               }
 }

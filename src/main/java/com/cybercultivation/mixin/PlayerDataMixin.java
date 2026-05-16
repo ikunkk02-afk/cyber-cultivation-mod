@@ -39,6 +39,16 @@ public class PlayerDataMixin {
             putEnum(cultivationNbt, "mainDiscipline", data.getMainDiscipline());
             putDisciplineList(cultivationNbt, "subDisciplines", data.getSubDisciplines());
             putEnum(cultivationNbt, "element", data.getElement());
+            cultivationNbt.putBoolean("herbalRealmActive", data.isInHerbalRealm());
+            cultivationNbt.putInt("herbalRealmTicksRemaining", data.getHerbalRealmTicksRemaining());
+            if (data.hasHerbalRealmReturnPoint()) {
+                cultivationNbt.putString("herbalRealmReturnDimension", data.getHerbalRealmReturnDimension().toString());
+                cultivationNbt.putDouble("herbalRealmReturnX", data.getHerbalRealmReturnX());
+                cultivationNbt.putDouble("herbalRealmReturnY", data.getHerbalRealmReturnY());
+                cultivationNbt.putDouble("herbalRealmReturnZ", data.getHerbalRealmReturnZ());
+                cultivationNbt.putFloat("herbalRealmReturnYRot", data.getHerbalRealmReturnYRot());
+                cultivationNbt.putFloat("herbalRealmReturnXRot", data.getHerbalRealmReturnXRot());
+            }
             nbt.put("cyber_cultivation", cultivationNbt);
         }
     }
@@ -64,6 +74,22 @@ public class PlayerDataMixin {
             data.setMainDiscipline(readEnum(cultivationNbt, "mainDiscipline", CultivationDiscipline.class));
             data.setSubDisciplines(readDisciplineList(cultivationNbt, "subDisciplines"));
             data.setElement(readEnum(cultivationNbt, "element", CultivationElement.class));
+            boolean herbalRealmActive = cultivationNbt.getBoolean("herbalRealmActive");
+            int herbalRealmTicksRemaining = cultivationNbt.contains("herbalRealmTicksRemaining") ? cultivationNbt.getInt("herbalRealmTicksRemaining") : 0;
+            net.minecraft.resources.ResourceLocation returnDimension = null;
+            if (cultivationNbt.contains("herbalRealmReturnDimension", Tag.TAG_STRING)) {
+                returnDimension = net.minecraft.resources.ResourceLocation.tryParse(cultivationNbt.getString("herbalRealmReturnDimension"));
+            }
+            data.loadHerbalRealmState(
+                    herbalRealmActive,
+                    herbalRealmTicksRemaining,
+                    returnDimension,
+                    cultivationNbt.getDouble("herbalRealmReturnX"),
+                    cultivationNbt.getDouble("herbalRealmReturnY"),
+                    cultivationNbt.getDouble("herbalRealmReturnZ"),
+                    cultivationNbt.getFloat("herbalRealmReturnYRot"),
+                    cultivationNbt.getFloat("herbalRealmReturnXRot")
+            );
         } else {
             // No cultivation NBT — reset to defaults so stale data from a
             // previous world doesn't leak into this one.

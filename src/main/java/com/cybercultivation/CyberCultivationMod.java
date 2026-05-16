@@ -13,6 +13,8 @@ import com.cybercultivation.loot.ModLootTableModifiers;
 import com.cybercultivation.meditation.MeditationHandler;
 import com.cybercultivation.network.*;
 import com.cybercultivation.particle.ModParticles;
+import com.cybercultivation.realm.RealmBossManager;
+import com.cybercultivation.realm.RealmManager;
 import com.cybercultivation.villager.ModTrades;
 import com.cybercultivation.villager.ModVillagers;
 import com.cybercultivation.worldgen.ModEntitySpawns;
@@ -47,6 +49,7 @@ public class CyberCultivationMod implements ModInitializer {
         DaoEquipmentHandler.register();
         AttackEffectHandler.register();
         ModParticles.register();
+        RealmBossManager.registerEvents();
 
         PayloadTypeRegistry.playS2C().register(QiSyncPayload.TYPE, QiSyncPayload.STREAM_CODEC);
         PayloadTypeRegistry.playS2C().register(PlayerAnimationSyncPayload.TYPE, PlayerAnimationSyncPayload.STREAM_CODEC);
@@ -72,6 +75,8 @@ public class CyberCultivationMod implements ModInitializer {
             MeditationHandler.onServerTick(server);
             FlyingSwordHandler.onServerTick(server);
             DaoEquipmentHandler.onServerTick(server);
+            RealmManager.onServerTick(server);
+            RealmBossManager.onServerTick(server);
         });
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {

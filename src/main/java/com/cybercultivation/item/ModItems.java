@@ -80,6 +80,8 @@ public final class ModItems {
     public static final Item SPIRIT_HERB = register("spirit_herb", new Item(new Item.Properties()));
     public static final Item DEMON_CORE = register("demon_core", new Item(new Item.Properties()));
     public static final Item BEAST_CORE = register("beast_core", new Item(new Item.Properties()));
+    public static final Item REALM_TOKEN = register("realm_token", new RealmTokenItem(new Item.Properties().stacksTo(16)));
+    public static final Item REALM_CORE = register("realm_core", new Item(new Item.Properties()));
     public static final Item TALISMAN_PAPER = register("talisman_paper", new Item(new Item.Properties()));
     public static final Item ARRAY_CORE = register("array_core", new Item(new Item.Properties()));
     public static final Item ALCHEMY_ESSENCE = register("alchemy_essence", new Item(new Item.Properties()));
@@ -191,6 +193,8 @@ public final class ModItems {
                         entries.accept(SPIRIT_HERB);
                         entries.accept(DEMON_CORE);
                         entries.accept(BEAST_CORE);
+                        entries.accept(REALM_TOKEN);
+                        entries.accept(REALM_CORE);
                         entries.accept(TALISMAN_PAPER);
                         entries.accept(ARRAY_CORE);
                         entries.accept(ALCHEMY_ESSENCE);

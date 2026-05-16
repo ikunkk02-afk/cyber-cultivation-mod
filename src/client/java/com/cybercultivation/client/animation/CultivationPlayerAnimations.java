@@ -28,10 +28,6 @@ public final class CultivationPlayerAnimations {
         return create("flying_sword");
     }
 
-    public static IAnimation createAttack(String animationName) {
-        return create(animationName);
-    }
-
     private static IAnimation create(String name) {
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
         IPlayable playable = PlayerAnimationRegistry.getAnimation(id);

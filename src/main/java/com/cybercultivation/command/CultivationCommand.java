@@ -6,6 +6,8 @@ import com.cybercultivation.cultivation.CultivationDiscipline;
 import com.cybercultivation.cultivation.CultivationPath;
 import com.cybercultivation.flysword.FlyingSwordHandler;
 import com.cybercultivation.meditation.MeditationHandler;
+import com.cybercultivation.realm.RealmBossManager;
+import com.cybercultivation.realm.RealmManager;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -16,6 +18,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.monster.WitherSkeleton;
 
 public class CultivationCommand {
 
@@ -29,6 +32,12 @@ public class CultivationCommand {
                                 .executes(CultivationCommand::executeMeditate))
                         .then(Commands.literal("flysword")
                                 .executes(CultivationCommand::executeFlyingSword))
+                        .then(Commands.literal("realm")
+                                .then(Commands.literal("leave")
+                                        .executes(CultivationCommand::executeRealmLeave)))
+                        .then(Commands.literal("summon")
+                                .then(Commands.literal("realm_boss")
+                                        .executes(CultivationCommand::executeSummonRealmBoss)))
                         .then(Commands.literal("qi")
                                 .executes(CultivationCommand::executeQiQuery)
                                 .then(Commands.literal("add")
@@ -92,6 +101,22 @@ public class CultivationCommand {
     private static int executeFlyingSword(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayerOrException();
         FlyingSwordHandler.toggle(player, false);
+        return 1;
+    }
+
+    private static int executeRealmLeave(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+        ServerPlayer player = context.getSource().getPlayerOrException();
+        return RealmManager.leaveByCommand(player) ? 1 : 0;
+    }
+
+    private static int executeSummonRealmBoss(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
+        ServerPlayer player = context.getSource().getPlayerOrException();
+        WitherSkeleton boss = RealmBossManager.spawnBossNear(player);
+        if (boss == null) {
+            player.sendSystemMessage(Component.literal("秘境守护者召唤失败。"));
+            return 0;
+        }
+        player.sendSystemMessage(Component.literal("已召唤秘境守护者。"));
         return 1;
     }
 

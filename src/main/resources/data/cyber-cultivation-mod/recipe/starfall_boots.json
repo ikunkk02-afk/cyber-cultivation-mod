@@ -1,20 +1,29 @@
 ﻿{
-    "key":  {
-                "E":  {
-                          "item":  "minecraft:netherite_scrap"
-                      },
-                "M":  {
-                          "item":  "cyber-cultivation-mod:high_grade_spirit_stone"
-                      }
-            },
+    "type":  "minecraft:crafting_shaped",
     "category":  "equipment",
     "pattern":  [
-                    "M M",
-                    "MEM"
+                    "NHN",
+                    "DBD",
+                    " S "
                 ],
+    "key":  {
+                "N":  {
+                          "item":  "minecraft:netherite_scrap"
+                      },
+                "D":  {
+                          "item":  "minecraft:diamond"
+                      },
+                "B":  {
+                          "item":  "cyber-cultivation-mod:mystic_jade_boots"
+                      },
+                "H":  {
+                          "item":  "cyber-cultivation-mod:high_grade_spirit_stone"
+                      },
+                "S":  {
+                          "item":  "minecraft:echo_shard"
+                      }
+            },
     "result":  {
-                   "id":  "cyber-cultivation-mod:starfall_boots",
-                   "count":  1
-               },
-    "type":  "minecraft:crafting_shaped"
+                   "id":  "cyber-cultivation-mod:starfall_boots"
+               }
 }

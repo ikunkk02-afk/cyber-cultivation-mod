@@ -1,4 +1,6 @@
 ﻿{
+    "type":  "minecraft:crafting_shapeless",
+    "category":  "food",
     "ingredients":  [
                         {
                             "item":  "minecraft:wheat_seeds"
@@ -7,13 +9,17 @@
                             "item":  "minecraft:wheat"
                         },
                         {
+                            "item":  "minecraft:kelp"
+                        },
+                        {
                             "item":  "cyber-cultivation-mod:low_grade_spirit_stone"
+                        },
+                        {
+                            "item":  "minecraft:bone_meal"
                         }
                     ],
-    "category":  "food",
     "result":  {
                    "id":  "cyber-cultivation-mod:spirit_rice",
-                   "count":  1
-               },
-    "type":  "minecraft:crafting_shapeless"
+                   "count":  2
+               }
 }

@@ -1,5 +1,13 @@
 ﻿{
+    "type":  "minecraft:crafting_shapeless",
+    "category":  "misc",
     "ingredients":  [
+                        {
+                            "item":  "minecraft:paper"
+                        },
+                        {
+                            "item":  "minecraft:paper"
+                        },
                         {
                             "item":  "minecraft:paper"
                         },
@@ -8,12 +16,13 @@
                         },
                         {
                             "item":  "minecraft:redstone"
+                        },
+                        {
+                            "item":  "cyber-cultivation-mod:low_grade_spirit_stone"
                         }
                     ],
-    "category":  "misc",
     "result":  {
                    "id":  "cyber-cultivation-mod:talisman_paper",
-                   "count":  1
-               },
-    "type":  "minecraft:crafting_shapeless"
+                   "count":  2
+               }
 }

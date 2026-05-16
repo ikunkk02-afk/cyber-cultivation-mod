@@ -1,12 +1,12 @@
 ﻿{
-    "cookingtime":  600,
-    "experience":  0.35,
+    "type":  "minecraft:campfire_cooking",
+    "category":  "food",
     "ingredient":  {
                        "item":  "cyber-cultivation-mod:spirit_meat"
                    },
-    "type":  "minecraft:campfire_cooking",
-    "category":  "food",
     "result":  {
                    "id":  "cyber-cultivation-mod:roasted_spirit_meat"
-               }
+               },
+    "experience":  0.35,
+    "cookingtime":  600
 }

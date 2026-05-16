@@ -25,6 +25,14 @@ public class PlayerQiData {
     private CultivationElement element;
     private boolean flyingSword;
     private ResourceLocation flyingSwordItemId;
+    private boolean herbalRealmActive;
+    private int herbalRealmTicksRemaining;
+    private ResourceLocation herbalRealmReturnDimension;
+    private double herbalRealmReturnX;
+    private double herbalRealmReturnY;
+    private double herbalRealmReturnZ;
+    private float herbalRealmReturnYRot;
+    private float herbalRealmReturnXRot;
 
     public PlayerQiData() {
         this.recommendedSubDisciplines = new ArrayList<>();
@@ -40,6 +48,7 @@ public class PlayerQiData {
         this.aptitudeTested = false;
         this.flyingSword = false;
         this.flyingSwordItemId = null;
+        clearHerbalRealm();
         this.recommendedPath = null;
         this.recommendedMainDiscipline = null;
         this.recommendedElement = null;
@@ -187,6 +196,98 @@ public class PlayerQiData {
 
     public void setFlyingSwordItemId(ResourceLocation flyingSwordItemId) {
         this.flyingSwordItemId = flyingSwordItemId;
+    }
+
+    public boolean isInHerbalRealm() {
+        return herbalRealmActive;
+    }
+
+    public int getHerbalRealmTicksRemaining() {
+        return Math.max(0, herbalRealmTicksRemaining);
+    }
+
+    public int decrementHerbalRealmTick() {
+        if (herbalRealmActive && herbalRealmTicksRemaining > 0) {
+            herbalRealmTicksRemaining--;
+        }
+        return getHerbalRealmTicksRemaining();
+    }
+
+    public void startHerbalRealm(ResourceLocation returnDimension,
+                                 double returnX,
+                                 double returnY,
+                                 double returnZ,
+                                 float returnYRot,
+                                 float returnXRot,
+                                 int ticksRemaining) {
+        this.herbalRealmActive = true;
+        this.herbalRealmTicksRemaining = Math.max(0, ticksRemaining);
+        this.herbalRealmReturnDimension = returnDimension;
+        this.herbalRealmReturnX = returnX;
+        this.herbalRealmReturnY = returnY;
+        this.herbalRealmReturnZ = returnZ;
+        this.herbalRealmReturnYRot = returnYRot;
+        this.herbalRealmReturnXRot = returnXRot;
+    }
+
+    public void loadHerbalRealmState(boolean active,
+                                     int ticksRemaining,
+                                     ResourceLocation returnDimension,
+                                     double returnX,
+                                     double returnY,
+                                     double returnZ,
+                                     float returnYRot,
+                                     float returnXRot) {
+        this.herbalRealmActive = active;
+        this.herbalRealmTicksRemaining = Math.max(0, ticksRemaining);
+        this.herbalRealmReturnDimension = returnDimension;
+        this.herbalRealmReturnX = returnX;
+        this.herbalRealmReturnY = returnY;
+        this.herbalRealmReturnZ = returnZ;
+        this.herbalRealmReturnYRot = returnYRot;
+        this.herbalRealmReturnXRot = returnXRot;
+        if (!active) {
+            clearHerbalRealm();
+        }
+    }
+
+    public void clearHerbalRealm() {
+        this.herbalRealmActive = false;
+        this.herbalRealmTicksRemaining = 0;
+        this.herbalRealmReturnDimension = null;
+        this.herbalRealmReturnX = 0.0D;
+        this.herbalRealmReturnY = 0.0D;
+        this.herbalRealmReturnZ = 0.0D;
+        this.herbalRealmReturnYRot = 0.0F;
+        this.herbalRealmReturnXRot = 0.0F;
+    }
+
+    public boolean hasHerbalRealmReturnPoint() {
+        return herbalRealmReturnDimension != null;
+    }
+
+    public ResourceLocation getHerbalRealmReturnDimension() {
+        return herbalRealmReturnDimension;
+    }
+
+    public double getHerbalRealmReturnX() {
+        return herbalRealmReturnX;
+    }
+
+    public double getHerbalRealmReturnY() {
+        return herbalRealmReturnY;
+    }
+
+    public double getHerbalRealmReturnZ() {
+        return herbalRealmReturnZ;
+    }
+
+    public float getHerbalRealmReturnYRot() {
+        return herbalRealmReturnYRot;
+    }
+
+    public float getHerbalRealmReturnXRot() {
+        return herbalRealmReturnXRot;
     }
 
     public void applyAptitudeResult(CultivationPath path,

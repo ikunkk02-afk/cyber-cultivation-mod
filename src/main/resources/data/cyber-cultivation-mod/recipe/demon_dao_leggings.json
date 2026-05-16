@@ -1,22 +1,29 @@
 ﻿{
-    "ingredients":  [
-                        {
-                            "item":  "cyber-cultivation-mod:starfall_leggings"
-                        },
-                        {
-                            "item":  "cyber-cultivation-mod:high_grade_spirit_stone"
-                        },
-                        {
-                            "item":  "cyber-cultivation-mod:demon_core"
-                        },
-                        {
-                            "item":  "minecraft:redstone"
-                        }
-                    ],
+    "type":  "minecraft:crafting_shaped",
     "category":  "equipment",
+    "pattern":  [
+                    "DCD",
+                    "HBH",
+                    " L "
+                ],
+    "key":  {
+                "L":  {
+                          "item":  "cyber-cultivation-mod:soul_lantern_flower"
+                      },
+                "H":  {
+                          "item":  "cyber-cultivation-mod:high_grade_spirit_stone"
+                      },
+                "D":  {
+                          "item":  "cyber-cultivation-mod:demon_core"
+                      },
+                "B":  {
+                          "item":  "cyber-cultivation-mod:starfall_leggings"
+                      },
+                "C":  {
+                          "item":  "cyber-cultivation-mod:realm_core"
+                      }
+            },
     "result":  {
-                   "id":  "cyber-cultivation-mod:demon_dao_leggings",
-                   "count":  1
-               },
-    "type":  "minecraft:crafting_shapeless"
+                   "id":  "cyber-cultivation-mod:demon_dao_leggings"
+               }
 }

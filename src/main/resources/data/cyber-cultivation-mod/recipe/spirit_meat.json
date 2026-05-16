@@ -1,19 +1,25 @@
 ﻿{
+    "type":  "minecraft:crafting_shapeless",
+    "category":  "food",
     "ingredients":  [
                         {
                             "item":  "minecraft:beef"
+                        },
+                        {
+                            "item":  "minecraft:mutton"
                         },
                         {
                             "item":  "cyber-cultivation-mod:spirit_herb"
                         },
                         {
                             "item":  "cyber-cultivation-mod:low_grade_spirit_stone"
+                        },
+                        {
+                            "item":  "cyber-cultivation-mod:beast_core"
                         }
                     ],
-    "category":  "food",
     "result":  {
                    "id":  "cyber-cultivation-mod:spirit_meat",
-                   "count":  1
-               },
-    "type":  "minecraft:crafting_shapeless"
+                   "count":  2
+               }
 }

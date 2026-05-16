@@ -15,7 +15,7 @@ public class SpiritHerbCropBlock extends CropBlock {
 
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, net.minecraft.core.BlockPos pos) {
-        return state.is(Blocks.FARMLAND) || state.is(Blocks.GRASS_BLOCK) || state.is(Blocks.DIRT) || state.is(Blocks.PODZOL);
+        return state.is(Blocks.FARMLAND);
     }
 
     @Override
