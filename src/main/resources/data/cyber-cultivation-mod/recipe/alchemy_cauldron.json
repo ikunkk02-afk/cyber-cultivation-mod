@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "SAS",
+    "ICI",
+    " I "
+  ],
+  "key": {
+    "S": {
+      "item": "cyber-cultivation-mod:spirit_stone"
+    },
+    "A": {
+      "item": "cyber-cultivation-mod:alchemy_essence"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "minecraft:cauldron"
+    }
+  },
+  "result": {
+    "id": "cyber-cultivation-mod:alchemy_cauldron",
+    "count": 1
+  }
+}

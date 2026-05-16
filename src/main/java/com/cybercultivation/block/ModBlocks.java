@@ -1,6 +1,7 @@
 package com.cybercultivation.block;
 
 import com.cybercultivation.CyberCultivationMod;
+import com.cybercultivation.block.custom.AlchemyCauldronBlock;
 import com.cybercultivation.block.custom.CultivationFlowerBlock;
 import com.cybercultivation.block.custom.SpiritHerbCropBlock;
 import com.cybercultivation.block.custom.SpiritRiceCropBlock;
@@ -28,6 +29,15 @@ public final class ModBlocks {
                     .mapColor(MapColor.WOOD)
                     .strength(2.5F, 3.5F)
                     .sound(SoundType.WOOD))
+    );
+    public static final Block ALCHEMY_CAULDRON = register(
+            "alchemy_cauldron",
+            new AlchemyCauldronBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.METAL)
+                    .strength(3.5F, 6.0F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)
+                    .lightLevel(state -> 4))
     );
     public static final Block SPIRIT_HERB_CROP = register(
             "spirit_herb_crop",

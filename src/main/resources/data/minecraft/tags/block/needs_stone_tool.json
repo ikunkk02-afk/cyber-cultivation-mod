@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "cyber-cultivation-mod:cultivation_altar"
+    "cyber-cultivation-mod:cultivation_altar",
+    "cyber-cultivation-mod:alchemy_cauldron"
   ]
 }

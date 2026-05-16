@@ -65,6 +65,11 @@ public class CultivationManualItem extends Item {
         return rank;
     }
 
+    @Override
+    public boolean isFoil(ItemStack stack) {
+        return true;
+    }
+
     public ResourceLocation getManualId() {
         return BuiltInRegistries.ITEM.getKey(this);
     }

@@ -4,6 +4,7 @@ import com.cybercultivation.CyberCultivationMod;
 import com.cybercultivation.block.ModBlocks;
 import com.cybercultivation.cultivation.CultivationDiscipline;
 import com.cybercultivation.cultivation.CultivationPath;
+import com.cybercultivation.effect.ModEffects;
 import com.cybercultivation.entity.ModEntities;
 import com.cybercultivation.item.custom.DaoRestrictedArmorItem;
 import com.cybercultivation.item.custom.DaoRestrictedSwordItem;
@@ -16,6 +17,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.BlockItem;
@@ -26,6 +29,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
+
+import java.util.List;
 
 public final class ModItems {
     public static final ResourceKey<CreativeModeTab> CYBER_CULTIVATION_TAB_KEY = ResourceKey.create(
@@ -40,6 +45,10 @@ public final class ModItems {
     public static final Item CULTIVATION_TABLE = register(
             "cultivation_table",
             new BlockItem(ModBlocks.CULTIVATION_TABLE, new Item.Properties())
+    );
+    public static final Item ALCHEMY_CAULDRON = register(
+            "alchemy_cauldron",
+            new BlockItem(ModBlocks.ALCHEMY_CAULDRON, new Item.Properties())
     );
     public static final Item SPIRIT_HERB_SEEDS = register(
             "spirit_herb_seeds",
@@ -137,14 +146,30 @@ public final class ModItems {
     public static final Item SPIRIT_MEAT = register("spirit_meat", new Item(foodItem(8, 0.8F)));
     public static final Item ROASTED_SPIRIT_MEAT = register("roasted_spirit_meat", new Item(foodItem(10, 1.0F)));
 
-    public static final Item QI_RECOVERY_PILL = register("qi_recovery_pill", new Item(foodItem(1, 0.1F)));
-    public static final Item QI_GATHERING_PILL = register("qi_gathering_pill", new Item(foodItem(1, 0.1F)));
-    public static final Item FOUNDATION_PILL = register("foundation_pill", new Item(foodItem(1, 0.1F)));
-    public static final Item HEART_CLEANSING_PILL = register("heart_cleansing_pill", new Item(foodItem(1, 0.1F)));
-    public static final Item BODY_TEMPERING_PILL = register("body_tempering_pill", new Item(foodItem(1, 0.1F)));
-    public static final Item DEMON_BLOOD_PILL = register("demon_blood_pill", new Item(foodItem(1, 0.1F)));
-    public static final Item HEALING_PILL = register("healing_pill", new Item(foodItem(1, 0.1F)));
-    public static final Item DETOX_PILL = register("detox_pill", new Item(foodItem(1, 0.1F)));
+    public static final Item QI_RECOVERY_PILL = register("qi_recovery_pill", pill(24,
+            List.of(pillEffect(ModEffects.QI_SURGE, 20 * 45, 0), pillEffect(MobEffects.REGENERATION, 20 * 12, 0)),
+            List.of()));
+    public static final Item QI_GATHERING_PILL = register("qi_gathering_pill", pill(12,
+            List.of(pillEffect(ModEffects.QI_SURGE, 20 * 90, 1), pillEffect(MobEffects.MOVEMENT_SPEED, 20 * 45, 0), pillEffect(MobEffects.DIG_SPEED, 20 * 45, 0)),
+            List.of()));
+    public static final Item FOUNDATION_PILL = register("foundation_pill", pill(0,
+            List.of(pillEffect(ModEffects.PROTECTIVE_AURA, 20 * 120, 1), pillEffect(MobEffects.DAMAGE_RESISTANCE, 20 * 45, 0)),
+            List.of()));
+    public static final Item HEART_CLEANSING_PILL = register("heart_cleansing_pill", pill(0,
+            List.of(pillEffect(ModEffects.TALISMAN_BLESSING, 20 * 90, 0), pillEffect(MobEffects.NIGHT_VISION, 20 * 120, 0)),
+            List.of(ModEffects.INNER_DEMON, ModEffects.QI_EXHAUSTION)));
+    public static final Item BODY_TEMPERING_PILL = register("body_tempering_pill", pill(0,
+            List.of(pillEffect(ModEffects.BODY_TEMPERING, 20 * 120, 1), pillEffect(MobEffects.DAMAGE_RESISTANCE, 20 * 60, 0)),
+            List.of()));
+    public static final Item DEMON_BLOOD_PILL = register("demon_blood_pill", pill(0,
+            List.of(pillEffect(ModEffects.BLOOD_FRENZY, 20 * 75, 1), pillEffect(MobEffects.DAMAGE_BOOST, 20 * 45, 1), pillEffect(MobEffects.MOVEMENT_SPEED, 20 * 45, 0)),
+            List.of()));
+    public static final Item HEALING_PILL = register("healing_pill", pill(0,
+            List.of(pillEffect(ModEffects.MEDICAL_REGENERATION, 20 * 50, 1), pillEffect(MobEffects.REGENERATION, 20 * 16, 1), pillEffect(MobEffects.ABSORPTION, 20 * 90, 0)),
+            List.of()));
+    public static final Item DETOX_PILL = register("detox_pill", pill(0,
+            List.of(pillEffect(ModEffects.ALCHEMY_BREATH, 20 * 90, 0), pillEffect(MobEffects.REGENERATION, 20 * 12, 0)),
+            List.of(MobEffects.POISON, MobEffects.WITHER)));
 
     public static final Item FLYING_SWORD = register(
             "flying_sword",
@@ -229,6 +254,7 @@ public final class ModItems {
                     .displayItems((context, entries) -> {
                         entries.accept(CULTIVATION_ALTAR);
                         entries.accept(CULTIVATION_TABLE);
+                        entries.accept(ALCHEMY_CAULDRON);
                         entries.accept(SPIRIT_HERB_SEEDS);
                         entries.accept(SPIRIT_RICE_SEEDS);
 
@@ -334,6 +360,7 @@ public final class ModItems {
     public static void registerModItems() {
         Item.BY_BLOCK.put(ModBlocks.CULTIVATION_ALTAR, CULTIVATION_ALTAR);
         Item.BY_BLOCK.put(ModBlocks.CULTIVATION_TABLE, CULTIVATION_TABLE);
+        Item.BY_BLOCK.put(ModBlocks.ALCHEMY_CAULDRON, ALCHEMY_CAULDRON);
         Item.BY_BLOCK.put(ModBlocks.SPIRIT_HERB_CROP, SPIRIT_HERB_SEEDS);
         Item.BY_BLOCK.put(ModBlocks.SPIRIT_RICE_CROP, SPIRIT_RICE_SEEDS);
         Item.BY_BLOCK.put(ModBlocks.FLAME_FLOWER, FLAME_FLOWER);
@@ -353,6 +380,16 @@ public final class ModItems {
                 .nutrition(nutrition)
                 .saturationModifier(saturationModifier)
                 .build());
+    }
+
+    private static CultivationPillItem pill(int qiRestore,
+                                            List<CultivationPillItem.PillEffect> effects,
+                                            List<Holder<MobEffect>> removedEffects) {
+        return new CultivationPillItem(foodItem(1, 0.1F), qiRestore, effects, removedEffects);
+    }
+
+    private static CultivationPillItem.PillEffect pillEffect(Holder<MobEffect> effect, int durationTicks, int amplifier) {
+        return new CultivationPillItem.PillEffect(effect, durationTicks, amplifier);
     }
 
     private static Item registerArmor(String name, Holder<ArmorMaterial> material, ArmorItem.Type type, int durabilityMultiplier) {

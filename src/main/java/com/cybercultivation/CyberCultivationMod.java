@@ -1,6 +1,7 @@
 package com.cybercultivation;
 
 import com.cybercultivation.block.ModBlocks;
+import com.cybercultivation.block.ModBlockEntities;
 import com.cybercultivation.command.CultivationCommand;
 import com.cybercultivation.component.PlayerQiManager;
 import com.cybercultivation.effect.ModEffects;
@@ -39,6 +40,7 @@ public class CyberCultivationMod implements ModInitializer {
 
         ModEffects.registerModEffects();
         ModBlocks.registerModBlocks();
+        ModBlockEntities.registerBlockEntities();
         ModItems.registerModItems();
         ModEntities.registerModEntities();
         ModVillagers.registerModVillagers();

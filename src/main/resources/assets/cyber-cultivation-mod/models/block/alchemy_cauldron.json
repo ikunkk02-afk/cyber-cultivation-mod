@@ -1,0 +1,10 @@
+{
+  "parent": "minecraft:block/cauldron",
+  "textures": {
+    "particle": "cyber-cultivation-mod:block/alchemy_cauldron",
+    "side": "cyber-cultivation-mod:block/alchemy_cauldron",
+    "top": "cyber-cultivation-mod:block/alchemy_cauldron",
+    "bottom": "cyber-cultivation-mod:block/alchemy_cauldron",
+    "inside": "cyber-cultivation-mod:block/alchemy_cauldron"
+  }
+}
