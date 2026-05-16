@@ -3,6 +3,7 @@ package com.cybercultivation.meditation;
 import com.cybercultivation.component.PlayerQiData;
 import com.cybercultivation.component.PlayerQiManager;
 import com.cybercultivation.cultivation.CultivationPath;
+import com.cybercultivation.item.CultivationManualItem;
 import com.cybercultivation.particle.SpiritQiParticleOptions;
 import com.cybercultivation.util.ParticleColorHelper;
 import net.minecraft.network.chat.Component;
@@ -86,10 +87,66 @@ public class MeditationHandler {
                 regenAmount += 1;
             }
             data.setCurrentQi(data.getCurrentQi() + regenAmount);
+            advanceManualStudy(player, data);
 
             PlayerQiManager.syncToClient(player);
 
             spawnMeditationParticles(player);
+        }
+    }
+
+    private static void advanceManualStudy(ServerPlayer player, PlayerQiData data) {
+        if (!data.hasManualStudy()) {
+            return;
+        }
+        data.advanceManualStudy(TICKS_PER_SECOND);
+        if (!data.isManualStudyComplete(CultivationManualItem.STUDY_REQUIRED_TICKS)) {
+            return;
+        }
+
+        String manualName = data.getStudyingManualDisplayName();
+        PlayerQiData.ManualStudyResult preview = previewManualStudyResult(data);
+        if (preview != PlayerQiData.ManualStudyResult.LEARNED) {
+            data.clearManualStudy();
+            sendManualStudyResult(player, preview, manualName);
+            return;
+        }
+
+        if (!CultivationManualItem.consumeManual(player, data.getStudyingManualId())) {
+            data.clearManualStudy();
+            player.sendSystemMessage(Component.literal("§c参悟失败：完成时背包中没有原宝典，无法习得内容。"));
+            return;
+        }
+
+        PlayerQiData.ManualStudyResult result = data.completeManualStudy();
+        sendManualStudyResult(player, result, manualName);
+    }
+
+    private static PlayerQiData.ManualStudyResult previewManualStudyResult(PlayerQiData data) {
+        if (!data.hasManualStudy()) {
+            return PlayerQiData.ManualStudyResult.NO_STUDY;
+        }
+        if (data.getStudyingManualType() == CultivationManualItem.ManualType.PATH
+                && data.getSelectedPath() != null
+                && data.getSelectedPath() != data.getStudyingManualPath()) {
+            return PlayerQiData.ManualStudyResult.CONFLICTING_PATH;
+        }
+        if (data.getStudyingManualType() == CultivationManualItem.ManualType.DISCIPLINE
+                && data.getMainDiscipline() != null
+                && data.getMainDiscipline() != data.getStudyingManualDiscipline()
+                && !data.getSubDisciplines().contains(data.getStudyingManualDiscipline())
+                && data.getSubDisciplines().size() >= PlayerQiData.MAX_SUB_DISCIPLINES) {
+            return PlayerQiData.ManualStudyResult.SUB_DISCIPLINES_FULL;
+        }
+        return PlayerQiData.ManualStudyResult.LEARNED;
+    }
+
+    private static void sendManualStudyResult(ServerPlayer player, PlayerQiData.ManualStudyResult result, String manualName) {
+        switch (result) {
+            case LEARNED -> player.sendSystemMessage(Component.literal("§a你完成参悟，习得了 " + manualName + "。"));
+            case CONFLICTING_PATH -> player.sendSystemMessage(Component.literal("§c你已有不同道统，无法改投此宝典道统。"));
+            case SUB_DISCIPLINES_FULL -> player.sendSystemMessage(Component.literal("§c你的副业已满，无法再学习新的职业宝典。"));
+            case INVALID, NO_STUDY -> player.sendSystemMessage(Component.literal("§c宝典参悟状态异常，本次学习未生效。"));
         }
     }
 

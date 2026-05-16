@@ -5,10 +5,13 @@ import com.cybercultivation.component.PlayerQiManager;
 import com.cybercultivation.cultivation.CultivationDiscipline;
 import com.cybercultivation.cultivation.CultivationElement;
 import com.cybercultivation.cultivation.CultivationPath;
+import com.cybercultivation.item.CultivationManualItem;
+import com.cybercultivation.item.CultivationManualRank;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.nbt.Tag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Mixin(ServerPlayer.class)
 public class PlayerDataMixin {
@@ -39,6 +43,9 @@ public class PlayerDataMixin {
             putEnum(cultivationNbt, "mainDiscipline", data.getMainDiscipline());
             putDisciplineList(cultivationNbt, "subDisciplines", data.getSubDisciplines());
             putEnum(cultivationNbt, "element", data.getElement());
+            putManualStudy(cultivationNbt, data);
+            putManualRankMap(cultivationNbt, "learnedPathManualRanks", data.getLearnedPathManualRanks());
+            putManualRankMap(cultivationNbt, "learnedDisciplineManualRanks", data.getLearnedDisciplineManualRanks());
             cultivationNbt.putBoolean("herbalRealmActive", data.isInHerbalRealm());
             cultivationNbt.putInt("herbalRealmTicksRemaining", data.getHerbalRealmTicksRemaining());
             if (data.hasHerbalRealmReturnPoint()) {
@@ -74,6 +81,9 @@ public class PlayerDataMixin {
             data.setMainDiscipline(readEnum(cultivationNbt, "mainDiscipline", CultivationDiscipline.class));
             data.setSubDisciplines(readDisciplineList(cultivationNbt, "subDisciplines"));
             data.setElement(readEnum(cultivationNbt, "element", CultivationElement.class));
+            readManualStudy(cultivationNbt, data);
+            readPathManualRanks(cultivationNbt, data);
+            readDisciplineManualRanks(cultivationNbt, data);
             boolean herbalRealmActive = cultivationNbt.getBoolean("herbalRealmActive");
             int herbalRealmTicksRemaining = cultivationNbt.contains("herbalRealmTicksRemaining") ? cultivationNbt.getInt("herbalRealmTicksRemaining") : 0;
             net.minecraft.resources.ResourceLocation returnDimension = null;
@@ -120,6 +130,83 @@ public class PlayerDataMixin {
             listTag.add(StringTag.valueOf(discipline.name()));
         }
         nbt.put(key, listTag);
+    }
+
+    private static void putManualStudy(CompoundTag nbt, PlayerQiData data) {
+        if (!data.hasManualStudy()) {
+            return;
+        }
+        nbt.putString("studyingManualId", data.getStudyingManualId().toString());
+        putEnum(nbt, "studyingManualType", data.getStudyingManualType());
+        putEnum(nbt, "studyingManualPath", data.getStudyingManualPath());
+        putEnum(nbt, "studyingManualDiscipline", data.getStudyingManualDiscipline());
+        putEnum(nbt, "studyingManualRank", data.getStudyingManualRank());
+        nbt.putString("studyingManualDisplayName", data.getStudyingManualDisplayName());
+        nbt.putInt("studyingManualTicks", data.getStudyingManualTicks());
+    }
+
+    private static <E extends Enum<E>> void putManualRankMap(CompoundTag nbt,
+                                                             String key,
+                                                             Map<E, CultivationManualRank> ranks) {
+        CompoundTag tag = new CompoundTag();
+        for (Map.Entry<E, CultivationManualRank> entry : ranks.entrySet()) {
+            if (entry.getValue() != null) {
+                tag.putString(entry.getKey().name(), entry.getValue().name());
+            }
+        }
+        nbt.put(key, tag);
+    }
+
+    private static void readManualStudy(CompoundTag nbt, PlayerQiData data) {
+        if (!nbt.contains("studyingManualId", Tag.TAG_STRING)) {
+            data.clearManualStudy();
+            return;
+        }
+        ResourceLocation manualId = ResourceLocation.tryParse(nbt.getString("studyingManualId"));
+        data.loadManualStudy(
+                manualId,
+                readEnum(nbt, "studyingManualType", CultivationManualItem.ManualType.class),
+                readEnum(nbt, "studyingManualPath", CultivationPath.class),
+                readEnum(nbt, "studyingManualDiscipline", CultivationDiscipline.class),
+                readEnum(nbt, "studyingManualRank", CultivationManualRank.class),
+                nbt.getString("studyingManualDisplayName"),
+                nbt.getInt("studyingManualTicks")
+        );
+    }
+
+    private static void readPathManualRanks(CompoundTag nbt, PlayerQiData data) {
+        if (!nbt.contains("learnedPathManualRanks", Tag.TAG_COMPOUND)) {
+            return;
+        }
+        CompoundTag ranks = nbt.getCompound("learnedPathManualRanks");
+        for (String key : ranks.getAllKeys()) {
+            CultivationPath path = readEnumValue(key, CultivationPath.class);
+            CultivationManualRank rank = readEnumValue(ranks.getString(key), CultivationManualRank.class);
+            data.setLearnedPathManualRank(path, rank);
+        }
+    }
+
+    private static void readDisciplineManualRanks(CompoundTag nbt, PlayerQiData data) {
+        if (!nbt.contains("learnedDisciplineManualRanks", Tag.TAG_COMPOUND)) {
+            return;
+        }
+        CompoundTag ranks = nbt.getCompound("learnedDisciplineManualRanks");
+        for (String key : ranks.getAllKeys()) {
+            CultivationDiscipline discipline = readEnumValue(key, CultivationDiscipline.class);
+            CultivationManualRank rank = readEnumValue(ranks.getString(key), CultivationManualRank.class);
+            data.setLearnedDisciplineManualRank(discipline, rank);
+        }
+    }
+
+    private static <E extends Enum<E>> E readEnumValue(String value, Class<E> enumClass) {
+        if (value == null || value.isBlank()) {
+            return null;
+        }
+        try {
+            return Enum.valueOf(enumClass, value);
+        } catch (IllegalArgumentException ignored) {
+            return null;
+        }
     }
 
     private static List<CultivationDiscipline> readDisciplineList(CompoundTag nbt, String key) {

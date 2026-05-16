@@ -2,6 +2,7 @@ package com.cybercultivation.item;
 
 import com.cybercultivation.CyberCultivationMod;
 import com.cybercultivation.block.ModBlocks;
+import com.cybercultivation.cultivation.CultivationDiscipline;
 import com.cybercultivation.cultivation.CultivationPath;
 import com.cybercultivation.entity.ModEntities;
 import com.cybercultivation.item.custom.DaoRestrictedArmorItem;
@@ -85,6 +86,51 @@ public final class ModItems {
     public static final Item TALISMAN_PAPER = register("talisman_paper", new Item(new Item.Properties()));
     public static final Item ARRAY_CORE = register("array_core", new Item(new Item.Properties()));
     public static final Item ALCHEMY_ESSENCE = register("alchemy_essence", new Item(new Item.Properties()));
+
+    public static final Item BASIC_HEAVENLY_DAO_MANUAL = registerPathManual("basic_heavenly_dao_manual", CultivationPath.HEAVENLY_DAO, CultivationManualRank.BASIC);
+    public static final Item INTERMEDIATE_HEAVENLY_DAO_MANUAL = registerPathManual("intermediate_heavenly_dao_manual", CultivationPath.HEAVENLY_DAO, CultivationManualRank.INTERMEDIATE);
+    public static final Item ADVANCED_HEAVENLY_DAO_MANUAL = registerPathManual("advanced_heavenly_dao_manual", CultivationPath.HEAVENLY_DAO, CultivationManualRank.ADVANCED);
+    public static final Item BASIC_HUMAN_DAO_MANUAL = registerPathManual("basic_human_dao_manual", CultivationPath.HUMAN_DAO, CultivationManualRank.BASIC);
+    public static final Item INTERMEDIATE_HUMAN_DAO_MANUAL = registerPathManual("intermediate_human_dao_manual", CultivationPath.HUMAN_DAO, CultivationManualRank.INTERMEDIATE);
+    public static final Item ADVANCED_HUMAN_DAO_MANUAL = registerPathManual("advanced_human_dao_manual", CultivationPath.HUMAN_DAO, CultivationManualRank.ADVANCED);
+    public static final Item BASIC_DEMON_DAO_MANUAL = registerPathManual("basic_demon_dao_manual", CultivationPath.DEMON_DAO, CultivationManualRank.BASIC);
+    public static final Item INTERMEDIATE_DEMON_DAO_MANUAL = registerPathManual("intermediate_demon_dao_manual", CultivationPath.DEMON_DAO, CultivationManualRank.INTERMEDIATE);
+    public static final Item ADVANCED_DEMON_DAO_MANUAL = registerPathManual("advanced_demon_dao_manual", CultivationPath.DEMON_DAO, CultivationManualRank.ADVANCED);
+
+    public static final Item BASIC_SWORD_MANUAL = registerDisciplineManual("basic_sword_manual", CultivationDiscipline.SWORD, CultivationManualRank.BASIC);
+    public static final Item INTERMEDIATE_SWORD_MANUAL = registerDisciplineManual("intermediate_sword_manual", CultivationDiscipline.SWORD, CultivationManualRank.INTERMEDIATE);
+    public static final Item ADVANCED_SWORD_MANUAL = registerDisciplineManual("advanced_sword_manual", CultivationDiscipline.SWORD, CultivationManualRank.ADVANCED);
+    public static final Item BASIC_BODY_MANUAL = registerDisciplineManual("basic_body_manual", CultivationDiscipline.BODY, CultivationManualRank.BASIC);
+    public static final Item INTERMEDIATE_BODY_MANUAL = registerDisciplineManual("intermediate_body_manual", CultivationDiscipline.BODY, CultivationManualRank.INTERMEDIATE);
+    public static final Item ADVANCED_BODY_MANUAL = registerDisciplineManual("advanced_body_manual", CultivationDiscipline.BODY, CultivationManualRank.ADVANCED);
+    public static final Item BASIC_ALCHEMY_MANUAL = registerDisciplineManual("basic_alchemy_manual", CultivationDiscipline.ALCHEMY, CultivationManualRank.BASIC);
+    public static final Item INTERMEDIATE_ALCHEMY_MANUAL = registerDisciplineManual("intermediate_alchemy_manual", CultivationDiscipline.ALCHEMY, CultivationManualRank.INTERMEDIATE);
+    public static final Item ADVANCED_ALCHEMY_MANUAL = registerDisciplineManual("advanced_alchemy_manual", CultivationDiscipline.ALCHEMY, CultivationManualRank.ADVANCED);
+    public static final Item BASIC_TALISMAN_MANUAL = registerDisciplineManual("basic_talisman_manual", CultivationDiscipline.TALISMAN, CultivationManualRank.BASIC);
+    public static final Item INTERMEDIATE_TALISMAN_MANUAL = registerDisciplineManual("intermediate_talisman_manual", CultivationDiscipline.TALISMAN, CultivationManualRank.INTERMEDIATE);
+    public static final Item ADVANCED_TALISMAN_MANUAL = registerDisciplineManual("advanced_talisman_manual", CultivationDiscipline.TALISMAN, CultivationManualRank.ADVANCED);
+    public static final Item BASIC_FORMATION_MANUAL = registerDisciplineManual("basic_formation_manual", CultivationDiscipline.FORMATION, CultivationManualRank.BASIC);
+    public static final Item INTERMEDIATE_FORMATION_MANUAL = registerDisciplineManual("intermediate_formation_manual", CultivationDiscipline.FORMATION, CultivationManualRank.INTERMEDIATE);
+    public static final Item ADVANCED_FORMATION_MANUAL = registerDisciplineManual("advanced_formation_manual", CultivationDiscipline.FORMATION, CultivationManualRank.ADVANCED);
+    public static final Item BASIC_MEDICAL_MANUAL = registerDisciplineManual("basic_medical_manual", CultivationDiscipline.MEDICAL, CultivationManualRank.BASIC);
+    public static final Item INTERMEDIATE_MEDICAL_MANUAL = registerDisciplineManual("intermediate_medical_manual", CultivationDiscipline.MEDICAL, CultivationManualRank.INTERMEDIATE);
+    public static final Item ADVANCED_MEDICAL_MANUAL = registerDisciplineManual("advanced_medical_manual", CultivationDiscipline.MEDICAL, CultivationManualRank.ADVANCED);
+
+    public static final Item[] BASIC_MANUALS = {
+            BASIC_HEAVENLY_DAO_MANUAL, BASIC_HUMAN_DAO_MANUAL, BASIC_DEMON_DAO_MANUAL,
+            BASIC_SWORD_MANUAL, BASIC_BODY_MANUAL, BASIC_ALCHEMY_MANUAL,
+            BASIC_TALISMAN_MANUAL, BASIC_FORMATION_MANUAL, BASIC_MEDICAL_MANUAL
+    };
+    public static final Item[] INTERMEDIATE_MANUALS = {
+            INTERMEDIATE_HEAVENLY_DAO_MANUAL, INTERMEDIATE_HUMAN_DAO_MANUAL, INTERMEDIATE_DEMON_DAO_MANUAL,
+            INTERMEDIATE_SWORD_MANUAL, INTERMEDIATE_BODY_MANUAL, INTERMEDIATE_ALCHEMY_MANUAL,
+            INTERMEDIATE_TALISMAN_MANUAL, INTERMEDIATE_FORMATION_MANUAL, INTERMEDIATE_MEDICAL_MANUAL
+    };
+    public static final Item[] ADVANCED_MANUALS = {
+            ADVANCED_HEAVENLY_DAO_MANUAL, ADVANCED_HUMAN_DAO_MANUAL, ADVANCED_DEMON_DAO_MANUAL,
+            ADVANCED_SWORD_MANUAL, ADVANCED_BODY_MANUAL, ADVANCED_ALCHEMY_MANUAL,
+            ADVANCED_TALISMAN_MANUAL, ADVANCED_FORMATION_MANUAL, ADVANCED_MEDICAL_MANUAL
+    };
 
     public static final Item SPIRIT_PEACH = register("spirit_peach", new Item(foodItem(4, 0.4F)));
     public static final Item SPIRIT_RICE = register("spirit_rice", new Item(foodItem(3, 0.3F)));
@@ -198,6 +244,15 @@ public final class ModItems {
                         entries.accept(TALISMAN_PAPER);
                         entries.accept(ARRAY_CORE);
                         entries.accept(ALCHEMY_ESSENCE);
+                        for (Item item : BASIC_MANUALS) {
+                            entries.accept(item);
+                        }
+                        for (Item item : INTERMEDIATE_MANUALS) {
+                            entries.accept(item);
+                        }
+                        for (Item item : ADVANCED_MANUALS) {
+                            entries.accept(item);
+                        }
                         entries.accept(FLAME_FLOWER);
                         entries.accept(FROST_FLOWER);
                         entries.accept(THUNDER_GRASS);
@@ -324,6 +379,14 @@ public final class ModItems {
                         .attributes(SwordItem.createAttributes(tier, attackDamage, attackSpeed)),
                 requiredPath
         ));
+    }
+
+    private static Item registerPathManual(String name, CultivationPath path, CultivationManualRank rank) {
+        return register(name, new CultivationManualItem(path, rank, new Item.Properties()));
+    }
+
+    private static Item registerDisciplineManual(String name, CultivationDiscipline discipline, CultivationManualRank rank) {
+        return register(name, new CultivationManualItem(discipline, rank, new Item.Properties()));
     }
 
     private static Item registerSword(String name,

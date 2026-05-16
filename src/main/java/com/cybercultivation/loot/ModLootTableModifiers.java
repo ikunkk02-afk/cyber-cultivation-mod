@@ -7,13 +7,17 @@ import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 public final class ModLootTableModifiers {
+    private static final float MATERIAL_DROP_MULTIPLIER = 1.25F;
+
     private ModLootTableModifiers() {
     }
 
@@ -24,6 +28,7 @@ public final class ModLootTableModifiers {
             }
 
             addMonsterDrops(key, tableBuilder);
+            addManualChestLoot(key, tableBuilder);
         });
 
         CyberCultivationMod.LOGGER.info("Registering Cyber Cultivation loot table modifiers");
@@ -96,9 +101,63 @@ public final class ModLootTableModifiers {
         }
     }
 
+    private static void addManualChestLoot(ResourceKey<LootTable> key, LootTable.Builder tableBuilder) {
+        if (matches(key,
+                BuiltInLootTables.SIMPLE_DUNGEON,
+                BuiltInLootTables.ABANDONED_MINESHAFT,
+                BuiltInLootTables.DESERT_PYRAMID,
+                BuiltInLootTables.JUNGLE_TEMPLE,
+                BuiltInLootTables.PILLAGER_OUTPOST,
+                BuiltInLootTables.RUINED_PORTAL,
+                BuiltInLootTables.STRONGHOLD_CORRIDOR,
+                BuiltInLootTables.STRONGHOLD_CROSSING,
+                BuiltInLootTables.TRIAL_CHAMBERS_SUPPLY,
+                BuiltInLootTables.TRIAL_CHAMBERS_CORRIDOR,
+                BuiltInLootTables.TRIAL_CHAMBERS_ENTRANCE)) {
+            tableBuilder.withPool(manualPool(12, ModItems.BASIC_MANUALS));
+        }
+
+        if (matches(key,
+                BuiltInLootTables.ANCIENT_CITY,
+                BuiltInLootTables.NETHER_BRIDGE,
+                BuiltInLootTables.BASTION_OTHER,
+                BuiltInLootTables.BASTION_BRIDGE,
+                BuiltInLootTables.BASTION_HOGLIN_STABLE,
+                BuiltInLootTables.END_CITY_TREASURE,
+                BuiltInLootTables.STRONGHOLD_LIBRARY,
+                BuiltInLootTables.WOODLAND_MANSION,
+                BuiltInLootTables.TRIAL_CHAMBERS_REWARD,
+                BuiltInLootTables.TRIAL_CHAMBERS_REWARD_RARE,
+                BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS,
+                BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS_RARE)) {
+            tableBuilder.withPool(manualPool(7, ModItems.BASIC_MANUALS));
+            tableBuilder.withPool(manualPool(15, ModItems.INTERMEDIATE_MANUALS));
+        }
+
+        if (matches(key,
+                BuiltInLootTables.ANCIENT_CITY,
+                BuiltInLootTables.BASTION_TREASURE,
+                BuiltInLootTables.END_CITY_TREASURE,
+                BuiltInLootTables.STRONGHOLD_LIBRARY,
+                BuiltInLootTables.TRIAL_CHAMBERS_REWARD_UNIQUE,
+                BuiltInLootTables.TRIAL_CHAMBERS_REWARD_OMINOUS_UNIQUE)) {
+            tableBuilder.withPool(manualPool(28, ModItems.ADVANCED_MANUALS));
+        }
+    }
+
     private static boolean matches(ResourceKey<LootTable> key, EntityType<?>... types) {
         for (EntityType<?> type : types) {
             if (type.getDefaultLootTable().equals(key)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @SafeVarargs
+    private static boolean matches(ResourceKey<LootTable> key, ResourceKey<LootTable>... tables) {
+        for (ResourceKey<LootTable> table : tables) {
+            if (table.equals(key)) {
                 return true;
             }
         }
@@ -111,12 +170,26 @@ public final class ModLootTableModifiers {
 
     private static void addChanceDrop(LootTable.Builder tableBuilder, ItemLike item, float chance) {
         tableBuilder.withPool(dropPool(item)
-                .when(LootItemRandomChanceCondition.randomChance(chance)));
+                .when(LootItemRandomChanceCondition.randomChance(increasedDropChance(chance))));
+    }
+
+    private static float increasedDropChance(float chance) {
+        return Math.min(1.0F, chance * MATERIAL_DROP_MULTIPLIER);
     }
 
     private static LootPool.Builder dropPool(ItemLike item) {
         return LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1.0F))
                 .add(LootItem.lootTableItem(item));
+    }
+
+    private static LootPool.Builder manualPool(int emptyWeight, ItemLike... manuals) {
+        LootPool.Builder pool = LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1.0F))
+                .add(EmptyLootItem.emptyItem().setWeight(emptyWeight));
+        for (ItemLike manual : manuals) {
+            pool.add(LootItem.lootTableItem(manual).setWeight(1));
+        }
+        return pool;
     }
 }

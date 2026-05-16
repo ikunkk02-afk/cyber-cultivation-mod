@@ -3,10 +3,14 @@ package com.cybercultivation.component;
 import com.cybercultivation.cultivation.CultivationDiscipline;
 import com.cybercultivation.cultivation.CultivationElement;
 import com.cybercultivation.cultivation.CultivationPath;
+import com.cybercultivation.item.CultivationManualItem;
+import com.cybercultivation.item.CultivationManualRank;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class PlayerQiData {
     public static final int MAX_SUB_DISCIPLINES = 2;
@@ -33,10 +37,21 @@ public class PlayerQiData {
     private double herbalRealmReturnZ;
     private float herbalRealmReturnYRot;
     private float herbalRealmReturnXRot;
+    private ResourceLocation studyingManualId;
+    private CultivationManualItem.ManualType studyingManualType;
+    private CultivationPath studyingManualPath;
+    private CultivationDiscipline studyingManualDiscipline;
+    private CultivationManualRank studyingManualRank;
+    private String studyingManualDisplayName;
+    private int studyingManualTicks;
+    private final Map<CultivationPath, CultivationManualRank> learnedPathManualRanks;
+    private final Map<CultivationDiscipline, CultivationManualRank> learnedDisciplineManualRanks;
 
     public PlayerQiData() {
         this.recommendedSubDisciplines = new ArrayList<>();
         this.subDisciplines = new ArrayList<>();
+        this.learnedPathManualRanks = new EnumMap<>(CultivationPath.class);
+        this.learnedDisciplineManualRanks = new EnumMap<>(CultivationDiscipline.class);
         reset();
     }
 
@@ -57,6 +72,9 @@ public class PlayerQiData {
         this.element = null;
         this.recommendedSubDisciplines.clear();
         this.subDisciplines.clear();
+        this.learnedPathManualRanks.clear();
+        this.learnedDisciplineManualRanks.clear();
+        clearManualStudy();
     }
 
     public int getCurrentQi() {
@@ -302,6 +320,165 @@ public class PlayerQiData {
         setRecommendedSubDisciplines(subDisciplines);
     }
 
+    public boolean hasManualStudy() {
+        return studyingManualId != null;
+    }
+
+    public void startManualStudy(ResourceLocation manualId,
+                                 CultivationManualItem.ManualType manualType,
+                                 CultivationPath path,
+                                 CultivationDiscipline discipline,
+                                 CultivationManualRank rank,
+                                 String displayName) {
+        this.studyingManualId = manualId;
+        this.studyingManualType = manualType;
+        this.studyingManualPath = path;
+        this.studyingManualDiscipline = discipline;
+        this.studyingManualRank = rank;
+        this.studyingManualDisplayName = displayName;
+        this.studyingManualTicks = 0;
+    }
+
+    public void loadManualStudy(ResourceLocation manualId,
+                                CultivationManualItem.ManualType manualType,
+                                CultivationPath path,
+                                CultivationDiscipline discipline,
+                                CultivationManualRank rank,
+                                String displayName,
+                                int ticks) {
+        this.studyingManualId = manualId;
+        this.studyingManualType = manualType;
+        this.studyingManualPath = path;
+        this.studyingManualDiscipline = discipline;
+        this.studyingManualRank = rank;
+        this.studyingManualDisplayName = displayName;
+        this.studyingManualTicks = Math.max(0, ticks);
+        if (manualId == null || manualType == null || rank == null || (path == null && discipline == null)) {
+            clearManualStudy();
+        }
+    }
+
+    public void clearManualStudy() {
+        this.studyingManualId = null;
+        this.studyingManualType = null;
+        this.studyingManualPath = null;
+        this.studyingManualDiscipline = null;
+        this.studyingManualRank = null;
+        this.studyingManualDisplayName = "";
+        this.studyingManualTicks = 0;
+    }
+
+    public ResourceLocation getStudyingManualId() {
+        return studyingManualId;
+    }
+
+    public CultivationManualItem.ManualType getStudyingManualType() {
+        return studyingManualType;
+    }
+
+    public CultivationPath getStudyingManualPath() {
+        return studyingManualPath;
+    }
+
+    public CultivationDiscipline getStudyingManualDiscipline() {
+        return studyingManualDiscipline;
+    }
+
+    public CultivationManualRank getStudyingManualRank() {
+        return studyingManualRank;
+    }
+
+    public String getStudyingManualDisplayName() {
+        if (studyingManualDisplayName == null || studyingManualDisplayName.isBlank()) {
+            return "未知宝典";
+        }
+        return studyingManualDisplayName;
+    }
+
+    public int getStudyingManualTicks() {
+        return studyingManualTicks;
+    }
+
+    public int getStudyingManualProgressSeconds() {
+        return Math.min(60, studyingManualTicks / 20);
+    }
+
+    public int advanceManualStudy(int ticks) {
+        if (!hasManualStudy()) {
+            return 0;
+        }
+        studyingManualTicks = Math.max(0, studyingManualTicks + ticks);
+        return studyingManualTicks;
+    }
+
+    public boolean isManualStudyComplete(int requiredTicks) {
+        return hasManualStudy() && studyingManualTicks >= requiredTicks;
+    }
+
+    public CultivationManualRank getLearnedPathManualRank(CultivationPath path) {
+        return learnedPathManualRanks.get(path);
+    }
+
+    public CultivationManualRank getLearnedDisciplineManualRank(CultivationDiscipline discipline) {
+        return learnedDisciplineManualRanks.get(discipline);
+    }
+
+    public Map<CultivationPath, CultivationManualRank> getLearnedPathManualRanks() {
+        return Map.copyOf(learnedPathManualRanks);
+    }
+
+    public Map<CultivationDiscipline, CultivationManualRank> getLearnedDisciplineManualRanks() {
+        return Map.copyOf(learnedDisciplineManualRanks);
+    }
+
+    public void setLearnedPathManualRank(CultivationPath path, CultivationManualRank rank) {
+        if (path != null && rank != null) {
+            learnedPathManualRanks.put(path, rank);
+        }
+    }
+
+    public void setLearnedDisciplineManualRank(CultivationDiscipline discipline, CultivationManualRank rank) {
+        if (discipline != null && rank != null) {
+            learnedDisciplineManualRanks.put(discipline, rank);
+        }
+    }
+
+    public ManualStudyResult completeManualStudy() {
+        if (!hasManualStudy()) {
+            return ManualStudyResult.NO_STUDY;
+        }
+        if (studyingManualType == CultivationManualItem.ManualType.PATH) {
+            if (selectedPath != null && selectedPath != studyingManualPath) {
+                clearManualStudy();
+                return ManualStudyResult.CONFLICTING_PATH;
+            }
+            selectedPath = studyingManualPath;
+            setLearnedPathManualRank(studyingManualPath, highestRank(getLearnedPathManualRank(studyingManualPath), studyingManualRank));
+            clearManualStudy();
+            return ManualStudyResult.LEARNED;
+        }
+        if (studyingManualType == CultivationManualItem.ManualType.DISCIPLINE) {
+            if (mainDiscipline == null) {
+                mainDiscipline = studyingManualDiscipline;
+            } else if (mainDiscipline != studyingManualDiscipline && !subDisciplines.contains(studyingManualDiscipline)) {
+                if (subDisciplines.size() >= MAX_SUB_DISCIPLINES) {
+                    clearManualStudy();
+                    return ManualStudyResult.SUB_DISCIPLINES_FULL;
+                }
+                subDisciplines.add(studyingManualDiscipline);
+            }
+            setLearnedDisciplineManualRank(studyingManualDiscipline, highestRank(getLearnedDisciplineManualRank(studyingManualDiscipline), studyingManualRank));
+            clearManualStudy();
+            return ManualStudyResult.LEARNED;
+        }
+        clearManualStudy();
+        return ManualStudyResult.INVALID;
+    }
+
+    private static CultivationManualRank highestRank(CultivationManualRank current, CultivationManualRank next) {
+        return next != null && next.isHigherThan(current) ? next : current;
+    }
+
     public String getSelectedPathDisplayName() {
         return selectedPath == null ? "未选择" : selectedPath.getChineseName();
     }
@@ -358,5 +535,13 @@ public class PlayerQiData {
                 return;
             }
         }
+    }
+
+    public enum ManualStudyResult {
+        LEARNED,
+        CONFLICTING_PATH,
+        SUB_DISCIPLINES_FULL,
+        INVALID,
+        NO_STUDY
     }
 }
